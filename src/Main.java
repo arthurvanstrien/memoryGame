@@ -40,6 +40,7 @@ public class Main extends JPanel {
         //connectionPanel
         JTextField IPInput = new JTextField(); //input for IP address
         IPInput.setSize(new Dimension(400,20)); //todo make fixed
+        IPInput.setColumns(15);
         connectionPanel.add(IPInput);
 
         JButton connect = new JButton("Connect"); //button that connects to IP address
@@ -55,7 +56,7 @@ public class Main extends JPanel {
             e.printStackTrace();
         }
         // todo replace with the function new game uses later
-        for (int i = 1; i < 25; i++){
+        for (int i = 0; i < 24; i++){
             String name = "button " + i;
             JButton button = new JButton(name);
             button.setSize(100,100);
