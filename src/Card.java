@@ -78,4 +78,19 @@ public class Card {
         return button;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public boolean isFaceDown() {
+        return faceDown;
+    }
+
+    public boolean isOnBoard() {
+        return onBoard;
+    }
 }
