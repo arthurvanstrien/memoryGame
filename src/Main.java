@@ -9,7 +9,12 @@ import java.io.IOException;
  * Created by Arthur on 15-5-2017.
  */
 public class Main extends JPanel {
-    public static void main(String[] arghs){
+    public static void main(String[] args) {
+        makeUI();
+
+    }
+
+    private static void makeUI(){
         // Create window
         JFrame frame = new JFrame("Memory");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -51,7 +56,7 @@ public class Main extends JPanel {
         //import image
         BufferedImage image;
         try {
-            image = ImageIO.read(new File("image name and path"));
+            image = ImageIO.read(new File("images/vogel.jpg")); //todo make path work
         } catch (IOException e) {
             e.printStackTrace();
         }
