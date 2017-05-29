@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="50ba8bf9-2fef-442e-acd0-df7e7a40b493" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Card.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CardList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MemoryGame/Main.class" afterPath="$PROJECT_DIR$/out/production/MemoryGame/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
-    </list>
+    <list default="true" id="50ba8bf9-2fef-442e-acd0-df7e7a40b493" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -575,12 +569,12 @@
       <workItem from="1495455242100" duration="6858000" />
       <workItem from="1495541666430" duration="1660000" />
       <workItem from="1495625354306" duration="7084000" />
-      <workItem from="1496048952351" duration="73000" />
+      <workItem from="1496048952351" duration="283000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45060000" />
+    <option name="totallyTimeSpent" value="45270000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
