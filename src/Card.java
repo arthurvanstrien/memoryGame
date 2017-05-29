@@ -1,4 +1,6 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by Tabitha on 23-5-2017.
@@ -8,8 +10,7 @@ public class Card {
     private String imagePath;
     private boolean faceDown;
     private boolean onBoard;
-
-    private int index;
+    private int index; //place on the board and index in CardsList
 
     public void Card(String name, String imagePath){
         this.name = name;
@@ -20,7 +21,7 @@ public class Card {
 
     public void Card() {
         this.name = "name";//this will become a parameter later on
-        this.imagePath = "hoi";
+        this.imagePath = "resources/vogel.jpg";
         this.onBoard = true;
         this.faceDown = true;
     }
@@ -49,14 +50,20 @@ public class Card {
         }
     }
 
-    /*
-    public Card CheckIfSecond(){
-        for (int i= 0; i <= cards.length; i++){
-            if (cards)
+/*
+    public boolean CheckIfSecond(){
+
+    }
+    public Card getOthercard(){
+        for (int i= 0; i <= .length; i++){
+            if (cards.get(i).onBoard){
+                if (!cards.get(i).facedown){
+                    return cards.get(i);
+                }
             }
         }
     }
-    */
+*/
 
     public void removeMe(){
         //change image to "empty image"
@@ -73,6 +80,12 @@ public class Card {
 
     public JButton putOnBoard(){
         JButton button = new JButton();
+        try {
+            Image img = ImageIO.read(getClass().getResource(this.imagePath));
+            button.setIcon(new ImageIcon(img));
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
         //todo make button look like card
 
         return button;

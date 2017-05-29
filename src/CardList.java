@@ -9,7 +9,7 @@ public class CardList {
 
     public void Cardlist(){
         for (int i = 0; i <= 24; i++){
-            Card card = new Card();//todo maybe add parameters later
+            Card card = new Card();//todo add parameters later for final version
             card.setIndex(i);
             cards.add(card);
         }
