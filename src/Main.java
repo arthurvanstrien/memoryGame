@@ -97,16 +97,14 @@ public class Main extends JPanel implements Serializable {
 
     private void connectToGame(String host){
 
-        DataInputStream input;
-        DataOutputStream output;
-
         try {
 
             Socket socket = new Socket(host, port);
-            input = new DataInputStream(socket.getInputStream());
-            output = new DataOutputStream(socket.getOutputStream());
+            DataInputStream inputStream = new DataInputStream(socket.getInputStream());
+            DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 
-            output.writeChars("sdfsdfsf");
+            System.out.println(inputStream.readUTF());
+            outputStream.writeChars("sdfsdfsf");
 
             socket.close();
         }
@@ -140,6 +138,10 @@ public class Main extends JPanel implements Serializable {
                 DataInputStream inputStream = new DataInputStream(socket.getInputStream());
                 DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 
+                outputStream.writeUTF("Test");
+                System.out.println(inputStream.readUTF());
+
+                /*
                 //Send how many cards we are going to send.
                 outputStream.writeInt(cards.size());
 
@@ -170,6 +172,7 @@ public class Main extends JPanel implements Serializable {
                     double inputValue = inputStream.readDouble();
                     System.out.println(inputValue);
                 }
+                */
 
                 socket.close();
             }
