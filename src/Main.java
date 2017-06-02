@@ -64,12 +64,14 @@ public class Main extends JPanel implements Serializable {
         //gameBoard
 
         //import image
+        /*
         BufferedImage image;
         try {
             image = ImageIO.read(new File("images/vogel.jpg")); //todo make path work
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
+
         // todo replace with the function new game uses later
         for (int i = 0; i < 24; i++){
             String name = "button " + i;
