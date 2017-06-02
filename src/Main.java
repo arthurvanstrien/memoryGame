@@ -2,16 +2,27 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Created by Arthur on 15-5-2017.
  */
-public class Main extends JPanel {
-    public static void main(String[] args) {
-        makeUI();
+public class Main extends JPanel implements Serializable {
 
+    private int port;
+    private boolean gameState;
+
+    public static void main(String[] args) {
+        new Main();
+        makeUI();
+    }
+
+    public Main()
+    {
+        this.port = 8000;
     }
 
     private static void makeUI(){
@@ -82,5 +93,90 @@ public class Main extends JPanel {
         //refresh window
         frame.repaint();
         frame.setVisible(true);
+    }
+
+    private void connectToGame(String host){
+
+        DataInputStream input;
+        DataOutputStream output;
+
+        try {
+
+            Socket socket = new Socket(host, port);
+            input = new DataInputStream(socket.getInputStream());
+            output = new DataOutputStream(socket.getOutputStream());
+
+            output.writeChars("sdfsdfsf");
+
+            socket.close();
+        }
+        catch (IOException e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    private void hostGame() {
+
+        //Generate a list of cards.
+        CardList cardList = new CardList();
+        cardList.shuffle();
+        ArrayList<Card> cards = new ArrayList<>();
+
+        new Thread( () ->
+        {
+            try
+            {
+                //Create a server socket
+                ServerSocket serverSocket = new ServerSocket(port);
+
+                //Listen for a connection request
+                Socket socket = serverSocket.accept();
+
+                //A client connected so the gamestate is changed to true.
+                gameState = true;
+
+                //Create data input and output streams
+                DataInputStream inputStream = new DataInputStream(socket.getInputStream());
+                DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+
+                //Send how many cards we are going to send.
+                outputStream.writeInt(cards.size());
+
+                System.out.println(cards.get(1).getName());
+
+                //Send list of cards
+                for(int i = 0; i < cards.size(); i++) {
+
+                    outputStream.writeUTF(cards.get(i).getName());
+                }
+
+                while (gameState == true) {
+
+                    String type = inputStream.readUTF();
+
+                    if(type.equals("match")) {
+
+                    }
+                    else if (type.equals("score")) {
+                        int score = inputStream.readInt();
+                        //Roep update score method hier aan.
+                    }
+                    else if (type.equals("endTurn")) {
+                        //Deze speler is weer aan de beurt.
+                    }
+
+                    // Receive radius from the client
+                    double inputValue = inputStream.readDouble();
+                    System.out.println(inputValue);
+                }
+
+                socket.close();
+            }
+            catch (IOException ex)
+            {
+                ex.printStackTrace();
+            }
+        }).start();
     }
 }
