@@ -26,7 +26,7 @@ public class ConnectGame {
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 
             System.out.println(inputStream.readUTF());
-            outputStream.writeChars("sdfsdfsf");
+            outputStream.writeUTF("This is a message to the server.");
 
             socket.close();
         }

@@ -21,7 +21,7 @@ public class Main extends JPanel implements Serializable {
 
     public Main()
     {
-        this.port = 8000;
+        this.port = 8001;
     }
 
     private static void makeUI(){

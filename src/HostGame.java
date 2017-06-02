@@ -3,7 +3,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 
 /**
  * Created by Arthur on 2-6-2017.
@@ -21,9 +20,9 @@ public class HostGame {
     private void hostGame() {
 
         //Generate a list of cards.
-        CardList cardList = new CardList();
-        cardList.shuffle();
-        ArrayList<Card> cards = new ArrayList<>();
+        //CardList cardList = new CardList();
+        //cardList.shuffle();
+        //ArrayList<Card> cards = new ArrayList<>();
 
         new Thread( () ->
         {
@@ -42,7 +41,7 @@ public class HostGame {
                 DataInputStream inputStream = new DataInputStream(socket.getInputStream());
                 DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 
-                outputStream.writeUTF("Test");
+                outputStream.writeUTF("Dit is het verhaal van Jan de Bakker. Hij was een bakker. Einde verhaal.");
                 System.out.println(inputStream.readUTF());
 
                 /*
