@@ -1,40 +1,28 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.ArrayList;
 
 /**
  * Created by Arthur on 15-5-2017.
+ * Refactored by Arthur on 03-06-2017.
  */
-public class Main extends JPanel implements Serializable {
-
-    private int port;
+public class Main extends JPanel {
 
     public static void main(String[] args) {
-        new Main();
-        makeUI();
-    }
 
-    public Main()
-    {
-        this.port = 8001;
-    }
-
-    private static void makeUI(){
         // Create window
         JFrame frame = new JFrame("Memory");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(700,420);
-
         frame.setContentPane(new Main());
+        frame.setVisible(true);
+    }
+
+    public Main()
+    {
+        int port = 8001;
 
         // Create Border Layout
-        Container pane = frame.getContentPane();
-        pane.setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
 
         //create JPanels
         JPanel connectionPanel = new JPanel();
@@ -58,9 +46,18 @@ public class Main extends JPanel implements Serializable {
         IPInput.setColumns(15);
         connectionPanel.add(IPInput);
 
-        JButton connect = new JButton("Connect"); //button that connects to IP address
-        connect.setPreferredSize(new Dimension(100,20));
-        connectionPanel.add(connect);
+        //button that connects to IP address
+        JButton connectButton = new JButton("Connect");
+        connectButton.setPreferredSize(new Dimension(100,20));
+        connectButton.addActionListener(new ConnectGame(IPInput, port));
+        connectionPanel.add(connectButton);
+
+        //Button that enables clients to connect to this client.
+        JButton hostButton = new JButton("Host Game");
+        hostButton.setPreferredSize(new Dimension(100, 20));
+        hostButton.addActionListener(new HostGame(port));
+        connectionPanel.add(hostButton);
+
         //gameBoard
 
         //import image
@@ -87,12 +84,11 @@ public class Main extends JPanel implements Serializable {
 
 
         //add everything to pane
-        pane.add(connectionPanel, BorderLayout.PAGE_START);
-        pane.add(gameBoard, BorderLayout.CENTER);
-        pane.add(scoreBoard, BorderLayout.LINE_END);
+        add(connectionPanel, BorderLayout.PAGE_START);
+        add(gameBoard, BorderLayout.CENTER);
+        add(scoreBoard, BorderLayout.LINE_END);
 
         //refresh window
-        frame.repaint();
-        frame.setVisible(true);
+        repaint();
     }
 }

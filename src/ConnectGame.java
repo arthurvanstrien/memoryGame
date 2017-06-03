@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -6,22 +9,23 @@ import java.net.Socket;
 /**
  * Created by Arthur on 2-6-2017.
  */
-public class ConnectGame {
+public class ConnectGame implements ActionListener {
 
-    private String ip;
     private int port;
+    private JTextField ipInput;
 
-    public  ConnectGame(String ip, int port) {
-        this.ip = ip;
+    public  ConnectGame(JTextField ipInput, int port) {
+
         this.port = port;
-        connectToGame();
+        this.ipInput = ipInput;
     }
 
-    private void connectToGame(){
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
         try {
 
-            Socket socket = new Socket(ip, port);
+            Socket socket = new Socket(ipInput.getText(), port);
             DataInputStream inputStream = new DataInputStream(socket.getInputStream());
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 
@@ -30,9 +34,9 @@ public class ConnectGame {
 
             socket.close();
         }
-        catch (IOException e) {
+        catch (IOException ioExeption) {
 
-            e.printStackTrace();
+            ioExeption.printStackTrace();
         }
     }
 }
