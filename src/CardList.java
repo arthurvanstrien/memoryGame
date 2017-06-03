@@ -7,17 +7,18 @@ import java.util.Collections;
 public class CardList {
     public ArrayList<Card> cards;
 
-    public void Cardlist(){
-        for (int i = 0; i <= 24; i++){
-            Card card = new Card();//todo add parameters later for final version
-            card.setIndex(i);
-            cards.add(card);
-        }
+    public CardList(ArrayList<Card> cards) {
+        this.cards = cards;
+        System.out.println("Cardlist intialized");
     }
 
     //shuffles all the cards
     public ArrayList shuffle(){
         Collections.shuffle(cards);
+        for (int i = 0; i < cards.size(); i++){
+            this.cards.get(i).setIndex(i);
+        } //makes the index match the index again
+        System.out.println("cardlist shuffled");
         return cards;
     }
 
@@ -25,6 +26,12 @@ public class CardList {
     public void drawBoard(){
         for (int i = 0;  i < 24; i++){
             cards.get(i).putOnBoard();
+        }
+    }
+
+    public void printCardList(){
+        for (int i = 0; i < cards.size(); i++){
+            System.out.print(cards.get(i));
         }
     }
 }

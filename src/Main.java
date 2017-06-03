@@ -1,17 +1,19 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+
 
 /**
  * Created by Tabitha on 15-5-2017.
  */
 public class Main extends JPanel implements MouseListener{
     public static void main(String[] args) {
+        //create cardslist
+        CardList cardList = new CardList(createCardsArrayList());
+        cardList.shuffle();
+        cardList.printCardList();
         // Create window
         JFrame frame = new JFrame("Memory");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -47,28 +49,28 @@ public class Main extends JPanel implements MouseListener{
         JButton connect = new JButton("Connect"); //button that connects to IP address
         connect.setPreferredSize(new Dimension(100,20));
         connectionPanel.add(connect);
-        //gameBoard
 
-        //import image
-        BufferedImage image;
-        try {
-            image = ImageIO.read(new File("images/vogel.jpg")); //todo make path work
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        JLabel connection = new JLabel("connection status");
+        connectionPanel.add(connection);
+
+        //scoreBoard
+        JLabel scorePlayer1 = new JLabel("Player 1: -");
+        JLabel scorePlayer2 = new JLabel("Player 2: -");
+        JLabel cardsLeft = new JLabel("Cards left: -");
+        JButton newGame = new JButton("New Game");
+        newGame.setSize(100,25);
+        scoreBoard.add(scorePlayer1);
+        scoreBoard.add(scorePlayer2);
+        scoreBoard.add(cardsLeft);
+        scoreBoard.add(newGame);
+
         // todo replace with the function new game uses later
-        for (int i = 1; i < 25; i++){
-            String name = "button " + i;
-            JButton button = new JButton(name);
+        for (int i = 0; i < 24; i++){
+            Card card = cardList.cards.get(i);
+            JButton button = card.putOnBoard();
             button.setSize(100,100);
             gameBoard.add(button);
         }
-        //scoreBoard
-        //todo create scores field that shows scores
-        JButton newGame = new JButton("New Game");
-        newGame.setSize(100,25);
-        scoreBoard.add(newGame);
-
 
         //add everything to pane
         pane.add(connectionPanel, BorderLayout.PAGE_START);
@@ -104,5 +106,32 @@ public class Main extends JPanel implements MouseListener{
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    //creates arraylist that has all the cards
+    public static ArrayList<Card> createCardsArrayList(){
+        ArrayList<Card> cards = new ArrayList<>(24);
+        ArrayList<String> names = new ArrayList<>(12);
+        names.add("case");
+        names.add("cpu");
+        names.add("cpufan");
+        names.add("fan");
+        names.add("gpu");
+        names.add("hdd");
+        names.add("mobo");
+        names.add("monitor");
+        names.add("mouse");
+        names.add("psu");
+        names.add("ram");
+        names.add("ssd");
+
+        for (int i = 0; i < 12; i++){
+            int secondIndex = i + 12;
+            cards.add(new Card(names.get(i), i));
+            cards.add(new Card(names.get(i), secondIndex));
+            //adds two indentical cards to cards
+            System.out.println(names.get(i));
+        }
+        return cards;
     }
 }

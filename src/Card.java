@@ -12,19 +12,23 @@ public class Card {
     private boolean onBoard;
     private int index; //place on the board and index in CardsList
 
-    public void Card(String name, String imagePath){
+    public Card(String name, int index){
         this.name = name;
-        this.imagePath = imagePath;
+        this.imagePath = "resources/images/" + name +".jpg";
         this.onBoard = true;
         this.faceDown = true;
+        this.index = index;
     }
-
-    public void Card() {
+/*
+    public Card() {
         this.name = "name";//this will become a parameter later on
         this.imagePath = "resources/vogel.jpg";
         this.onBoard = true;
         this.faceDown = true;
     }
+*/
+
+
 
     public int getIndex() {
         return index;
@@ -50,20 +54,6 @@ public class Card {
         }
     }
 
-/*
-    public boolean CheckIfSecond(){
-
-    }
-    public Card getOthercard(){
-        for (int i= 0; i <= .length; i++){
-            if (cards.get(i).onBoard){
-                if (!cards.get(i).facedown){
-                    return cards.get(i);
-                }
-            }
-        }
-    }
-*/
 
     public void removeMe(){
         //change image to "empty image"
@@ -80,15 +70,34 @@ public class Card {
 
     public JButton putOnBoard(){
         JButton button = new JButton();
-        try {
-            Image img = ImageIO.read(getClass().getResource(this.imagePath));
-            button.setIcon(new ImageIcon(img));
-        } catch (Exception ex) {
-            System.out.println(ex);
+        if (onBoard) {
+            try {
+                Image img = ImageIO.read(getClass().getResource(this.imagePath));
+                Image back = ImageIO.read(getClass().getResource("/resources/images/back.jpg"));
+                if (!faceDown) {
+                    button.setIcon(new ImageIcon(back));
+                } else {
+                    button.setIcon(new ImageIcon(img));
+                }
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+        } else {
+            try {
+                Image img = ImageIO.read(getClass().getResource("/resources/images/empty.jpg"));
+                button.setIcon(new ImageIcon(img));
+            }
+            catch (Exception ex) {
+                System.out.println(ex);
+            }
         }
-        //todo make button look like card
+
 
         return button;
+    }
+
+    public String toString(){
+        return "name: " + this.name + " index: " + this.index + ", ";
     }
 
 }
