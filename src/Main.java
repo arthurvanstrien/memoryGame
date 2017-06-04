@@ -7,6 +7,12 @@ import java.awt.*;
  */
 public class Main extends JPanel {
 
+    private JTextField IPInput;
+    private JTextField portInput;
+    private JButton connectButton;
+    private JButton hostButton;
+    private JTextField statusField;
+
     public static void main(String[] args) {
 
         // Create window
@@ -19,6 +25,7 @@ public class Main extends JPanel {
 
     public Main()
     {
+        //Set default port
         int port = 8001;
 
         // Create Border Layout
@@ -40,23 +47,39 @@ public class Main extends JPanel {
         scoreBoard.setSize(new Dimension(100,400));
 
         //add things to JPanels
+
         //connectionPanel
-        JTextField IPInput = new JTextField(); //input for IP address
-        IPInput.setSize(new Dimension(400,20)); //todo make fixed
-        IPInput.setColumns(15);
+
+        //input field for IP address
+        IPInput = new JTextField();
+        IPInput.setSize(new Dimension(400,20));
+        IPInput.setColumns(10);
         connectionPanel.add(IPInput);
 
+        //input field for the port
+        portInput = new JTextField();
+        portInput.setSize(new Dimension(400,20));
+        portInput.setColumns(5);
+        connectionPanel.add(portInput);
+
         //button that connects to IP address
-        JButton connectButton = new JButton("Connect");
+        connectButton = new JButton("Connect");
         connectButton.setPreferredSize(new Dimension(100,20));
-        connectButton.addActionListener(new ConnectGame(IPInput, port));
+        connectButton.addActionListener(new ConnectGame(IPInput, port, this));
         connectionPanel.add(connectButton);
 
         //Button that enables clients to connect to this client.
-        JButton hostButton = new JButton("Host Game");
+        hostButton = new JButton("Host Game");
         hostButton.setPreferredSize(new Dimension(100, 20));
-        hostButton.addActionListener(new HostGame(port));
+        hostButton.addActionListener(new HostGame(port, this));
         connectionPanel.add(hostButton);
+
+        //Field that displays of you are hosting, connected or disconnected.
+        statusField = new JTextField();
+        statusField.setSize(new Dimension(400,20)); //todo make fixed
+        statusField.setColumns(25);
+        statusField.setEditable(false);
+        connectionPanel.add(statusField);
 
         //gameBoard
 
@@ -90,5 +113,26 @@ public class Main extends JPanel {
 
         //refresh window
         repaint();
+    }
+
+    public void updateStatusField(String text, Color color) {
+        statusField.setText(text);
+        statusField.setForeground(color);
+    }
+
+    public void toggleHostButton(boolean value) {
+        hostButton.setEnabled(value);
+    }
+
+    public void toggleConnectButton (boolean value) {
+        connectButton.setEnabled(value);
+    }
+
+    public void toggleIpInputField (boolean value) {
+        IPInput.setEnabled(value);
+    }
+
+    public void togglePortField (boolean value) {
+        portInput.setEnabled(value);
     }
 }
