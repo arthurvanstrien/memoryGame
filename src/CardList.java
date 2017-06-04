@@ -9,12 +9,18 @@ public class CardList {
     public ArrayList<Card> cards;
 
     public ArrayList<Card> getCards() {
-
         return cards;
     }
 
-    public void Cardlist(){
+    public int getNumberOf(){
+        return cards.size();
+    }
 
+    public Card getCard(int index) {
+        return cards.get(index);
+    }
+
+    public void Cardlist(){
         for (int i = 0; i <= 24; i++){
 
             Card card = new Card();//todo maybe add parameters later
@@ -25,7 +31,6 @@ public class CardList {
 
     //shuffles all the cards
     public ArrayList shuffle(){
-
         Collections.shuffle(cards);
         return cards;
     }
