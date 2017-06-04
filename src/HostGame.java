@@ -46,7 +46,7 @@ public class HostGame implements ActionListener{
                     ServerSocket serverSocket = new ServerSocket(port);
 
                     //Message hosting started
-                    main.updateStatusField("Hosting game, waiting for client", Color.GREEN);
+                    main.updateMessageField("Hosting game, waiting for client", Color.GREEN);
                     main.toggleHostButton(false);
                     main.toggleConnectButton(false);
                     main.toggleIpInputField(false);
@@ -56,7 +56,7 @@ public class HostGame implements ActionListener{
                     Socket socket = serverSocket.accept();
 
                     //Message client connected
-                    main.updateStatusField("Client connected, game started", Color.GREEN);
+                    main.updateMessageField("Client connected, game started", Color.GREEN);
 
                     //Create data input and output streams
                     DataInputStream inputStream = new DataInputStream(socket.getInputStream());
@@ -115,12 +115,12 @@ public class HostGame implements ActionListener{
                     socket.close();
 
                     //End game
-                    main.updateStatusField("Game ended", Color.GREEN);
+                    main.updateMessageField("Game ended", Color.GREEN);
 
                 } catch (IOException ioExeption) {
 
                     //Message client connected
-                    main.updateStatusField("PORT IS TAKEN", Color.RED);
+                    main.updateMessageField("PORT IS TAKEN", Color.RED);
 
                     ioExeption.printStackTrace();
                 }

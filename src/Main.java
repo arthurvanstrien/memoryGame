@@ -10,7 +10,7 @@ public class Main extends JPanel {
     private JTextField IPInput;
     private JButton connectButton;
     private JButton hostButton;
-    private JTextField statusField;
+    private JTextField messageField;
     private int numberOfCards;
     private JLabel scorePlayer1;
     private JLabel scorePlayer2;
@@ -72,11 +72,11 @@ public class Main extends JPanel {
         connectionPanel.add(hostButton);
 
         //Field that displays of you are hosting, connected or disconnected.
-        statusField = new JTextField();
-        statusField.setSize(new Dimension(400,20)); //todo make fixed
-        statusField.setColumns(30);
-        statusField.setEditable(false);
-        connectionPanel.add(statusField);
+        messageField = new JTextField();
+        messageField.setSize(new Dimension(400,20)); //todo make fixed
+        messageField.setColumns(30);
+        messageField.setEditable(false);
+        connectionPanel.add(messageField);
 
         //GameBoard
 
@@ -115,16 +115,16 @@ public class Main extends JPanel {
         add(scoreBoard, BorderLayout.LINE_END);
 
         //Display default startmessage
-        statusField.setForeground(Color.BLACK);
-        statusField.setText("Start a game by hosting or connecting");
+        messageField.setForeground(Color.BLACK);
+        messageField.setText("Start a game by hosting or connecting");
 
         //refresh window
         repaint();
     }
 
-    public void updateStatusField(String text, Color color) {
-        statusField.setText(text);
-        statusField.setForeground(color);
+    public void updateMessageField(String text, Color color) {
+        messageField.setText(text);
+        messageField.setForeground(color);
     }
 
     public void updateScorePlayerOne(int score) {
