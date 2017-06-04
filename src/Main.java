@@ -115,8 +115,7 @@ public class Main extends JPanel {
         add(scoreBoard, BorderLayout.LINE_END);
 
         //Display default startmessage
-        messageField.setForeground(Color.BLACK);
-        messageField.setText("Start a game by hosting or connecting");
+        updateMessageField("Start a game by hosting or connecting", Color.BLACK);
 
         //refresh window
         repaint();
