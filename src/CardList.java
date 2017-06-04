@@ -42,7 +42,6 @@ public class CardList {
     public void drawBoard(){
 
         for (int i = 0;  i < 24; i++){
-
             cards.get(i).putOnBoard();
         }
     }
