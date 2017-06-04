@@ -103,7 +103,7 @@ public class HostGame implements ActionListener{
                                 }
                                 else if (type.equals("SCORE")) {
                                     int score = inputStream.readInt();
-                                    //Change the score value in the GUI.
+                                    main.updateScorePlayerTwo(score);
                                 }
                                 else if (type.equals("ENDTURN")) {
                                     myTurn = true;
