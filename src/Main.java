@@ -103,12 +103,10 @@ public class Main extends JPanel {
         scorePlayer1 = new JLabel("Player 1: -");
         scorePlayer2 = new JLabel("Player 2: -");
         cardsLeft = new JLabel("Cards left: -");
-        JButton newGame = new JButton("New Game");
-        newGame.setSize(100,25);
+        
         scoreBoard.add(scorePlayer1);
         scoreBoard.add(scorePlayer2);
         scoreBoard.add(cardsLeft);
-        scoreBoard.add(newGame);
 
         //Add everything to pane
         add(connectionPanel, BorderLayout.PAGE_START);
