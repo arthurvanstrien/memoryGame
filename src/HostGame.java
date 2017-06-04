@@ -90,7 +90,12 @@ public class HostGame implements ActionListener{
                                 String type = inputStream.readUTF();
                                 type.toUpperCase(); //In case someone sends lowercase characters.
 
-                                if(type.equals("MATCH")) {
+                                if(type.equals("CLICKED")) {
+                                    int clickedCard = inputStream.readInt();
+
+                                    //Turn that card in the GUI.
+                                }
+                                else if(type.equals("MATCH")) {
                                     int card1 = inputStream.readInt();
                                     int card2 = inputStream.readInt();
 
