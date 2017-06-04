@@ -8,7 +8,6 @@ import java.awt.*;
 public class Main extends JPanel {
 
     private JTextField IPInput;
-    private JTextField portInput;
     private JButton connectButton;
     private JButton hostButton;
     private JTextField statusField;
@@ -56,12 +55,6 @@ public class Main extends JPanel {
         IPInput.setColumns(10);
         connectionPanel.add(IPInput);
 
-        //input field for the port
-        portInput = new JTextField();
-        portInput.setSize(new Dimension(400,20));
-        portInput.setColumns(5);
-        connectionPanel.add(portInput);
-
         //button that connects to IP address
         connectButton = new JButton("Connect");
         connectButton.setPreferredSize(new Dimension(100,20));
@@ -77,7 +70,7 @@ public class Main extends JPanel {
         //Field that displays of you are hosting, connected or disconnected.
         statusField = new JTextField();
         statusField.setSize(new Dimension(400,20)); //todo make fixed
-        statusField.setColumns(25);
+        statusField.setColumns(30);
         statusField.setEditable(false);
         connectionPanel.add(statusField);
 
@@ -99,17 +92,21 @@ public class Main extends JPanel {
             button.setSize(100,100);
             gameBoard.add(button);
         }
+
         //scoreBoard
         //todo create scores field that shows scores
         JButton newGame = new JButton("New Game");
         newGame.setSize(100,25);
         scoreBoard.add(newGame);
 
-
         //add everything to pane
         add(connectionPanel, BorderLayout.PAGE_START);
         add(gameBoard, BorderLayout.CENTER);
         add(scoreBoard, BorderLayout.LINE_END);
+
+        //Display default startmessage
+        statusField.setForeground(Color.BLACK);
+        statusField.setText("Start a game by hosting or connecting");
 
         //refresh window
         repaint();
@@ -128,11 +125,11 @@ public class Main extends JPanel {
         connectButton.setEnabled(value);
     }
 
-    public void toggleIpInputField (boolean value) {
-        IPInput.setEnabled(value);
+    public void updateConnectButton (String text) {
+        connectButton.setText(text);
     }
 
-    public void togglePortField (boolean value) {
-        portInput.setEnabled(value);
+    public void toggleIpInputField (boolean value) {
+        IPInput.setEnabled(value);
     }
 }
