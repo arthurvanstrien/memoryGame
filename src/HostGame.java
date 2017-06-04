@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataInputStream;
@@ -12,78 +13,113 @@ import java.net.Socket;
 public class HostGame implements ActionListener{
 
     private int port;
-    private boolean gameState;
+    private boolean hosting;
+    private Main main;
+    private CardList cardList;
+    private boolean myTurn;
 
-    public HostGame(int port) {
+    public HostGame(int port, Main main) {
         this.port = port;
+        this.main = main;
+        this.hosting = false;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        //Generate a list of cards.
-        //CardList cardList = new CardList();
-        //cardList.shuffle();
-        //ArrayList<Card> cards = new ArrayList<>();
+        if(hosting) {
 
-        new Thread( () -> {
+            hosting = false;
+            //main.getHostButton().setText("Host Game");
 
-            try {
+        } else {
 
-                //Create a server socket
-                ServerSocket serverSocket = new ServerSocket(port);
+            //Generate a list of cards.
+            cardList = new CardList();
+            cardList.shuffle();
 
-                //Listen for a connection request
-                Socket socket = serverSocket.accept();
+            new Thread( () -> {
 
-                //A client connected so the gamestate is changed to true.
-                gameState = true;
+                try {
 
-                //Create data input and output streams
-                DataInputStream inputStream = new DataInputStream(socket.getInputStream());
-                DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+                    //Create a server socket
+                    ServerSocket serverSocket = new ServerSocket(port);
 
-                outputStream.writeUTF("Dit is het verhaal van Jan de Bakker. Hij was een bakker. Einde verhaal.");
-                System.out.println(inputStream.readUTF());
+                    //Message hosting started
+                    main.updateStatusField("Hosting game, waiting for client", Color.GREEN);
+                    main.toggleHostButton(false);
+                    main.toggleConnectButton(false);
+                    main.toggleIpInputField(false);
+                    hosting = true;
 
-            /*
-            //Send how many cards we are going to send.
-            outputStream.writeInt(cards.size());
+                    //Listen for a connection request
+                    Socket socket = serverSocket.accept();
 
-            System.out.println(cards.get(1).getName());
+                    //Message client connected
+                    main.updateStatusField("Client connected, game started", Color.GREEN);
 
-            //Send list of cards
-            for(int i = 0; i < cards.size(); i++) {
+                    //Create data input and output streams
+                    DataInputStream inputStream = new DataInputStream(socket.getInputStream());
+                    DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 
-                outputStream.writeUTF(cards.get(i).getName());
-            }
+                    //Send how many cards we are going to send.
+                    outputStream.writeInt(cardList.getNumberOf());
 
-            while (gameState == true) {
+                    //Send list of cards
+                    for(int i = 0; i < cardList.getNumberOf(); i++) {
 
-                String type = inputStream.readUTF();
+                        outputStream.writeUTF(cardList.getCard(i).getName());
+                        System.out.println(cardList.getCard(i).getName());
+                    }
 
-                if(type.equals("match")) {
+                    //The client always begins.
+                    myTurn = false;
 
+
+                    while (hosting == true) {
+
+                        if(myTurn = true) {
+                            //Sending data to other player.
+
+                            //Stuff from buttons on the screens happens here.
+                        }
+                        else {
+                            //Recieving data from other player
+
+                            while (!myTurn) {
+                                String type = inputStream.readUTF();
+                                type.toUpperCase(); //In case someone sends lowercase characters.
+
+                                if(type.equals("MATCH")) {
+                                    int card1 = inputStream.readInt();
+                                    int card2 = inputStream.readInt();
+
+                                    //Update the GUI by disabeling the two cards.
+                                }
+                                else if (type.equals("SCORE")) {
+                                    int score = inputStream.readInt();
+                                    //Change the score value in the GUI.
+                                }
+                                else if (type.equals("ENDTURN")) {
+                                    myTurn = true;
+                                }
+                            }
+                        }
+                    }
+
+                    socket.close();
+
+                    //End game
+                    main.updateStatusField("Game ended", Color.GREEN);
+
+                } catch (IOException ioExeption) {
+
+                    //Message client connected
+                    main.updateStatusField("PORT IS TAKEN", Color.RED);
+
+                    ioExeption.printStackTrace();
                 }
-                else if (type.equals("score")) {
-                    int score = inputStream.readInt();
-                    //Roep update score method hier aan.
-                }
-                else if (type.equals("endTurn")) {
-                    //Deze speler is weer aan de beurt.
-                }
-
-                // Receive radius from the client
-                double inputValue = inputStream.readDouble();
-                System.out.println(inputValue);
-            }
-            */
-
-                socket.close();
-            } catch (IOException ioExeption) {
-
-                ioExeption.printStackTrace();
-            }
-        }).start();
+            }).start();
+        }
     }
 }
