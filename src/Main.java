@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class Main extends JPanel implements MouseListener{
         CardList cardList = new CardList(createCardsArrayList());
         cardList.shuffle();
         cardList.printCardList();
+
         // Create window
         JFrame frame = new JFrame("Memory");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -134,4 +137,12 @@ public class Main extends JPanel implements MouseListener{
         }
         return cards;
     }
+/*
+    //eventhandlers
+    private class Handlers implements ActionListener{
+        public void actionPerformed(ActionEvent event){
+
+        }
+    }
+*/
 }

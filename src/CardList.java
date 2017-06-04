@@ -31,7 +31,7 @@ public class CardList {
 
     public void printCardList(){
         for (int i = 0; i < cards.size(); i++){
-            System.out.print(cards.get(i));
+            System.out.println(cards.get(i));
         }
     }
 }

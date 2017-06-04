@@ -43,8 +43,14 @@ public class Card {
             if (faceDown) {
                 faceDown = false;
                 //todo change image of the card
-                //call function that checks if this is the second card //todo create this function
-                //if this is the second card, get the first card with other function //todo make function
+                this.putOnBoard(); //this function probably does that, can't test yet
+
+                /* if (this catrd is the second card){
+                return otherCard
+               } else {
+               nog een kaart laten kiezen
+                    }
+                 */
                 //call sameCards function
                /* if (sameCards(otherCard)){
                     //add points
@@ -74,7 +80,7 @@ public class Card {
             try {
                 Image img = ImageIO.read(getClass().getResource(this.imagePath));
                 Image back = ImageIO.read(getClass().getResource("/resources/images/back.jpg"));
-                if (!faceDown) {
+                if (faceDown) {
                     button.setIcon(new ImageIcon(back));
                 } else {
                     button.setIcon(new ImageIcon(img));
@@ -91,13 +97,11 @@ public class Card {
                 System.out.println(ex);
             }
         }
-
-
         return button;
     }
 
     public String toString(){
-        return "name: " + this.name + " index: " + this.index + ", ";
+        return "name: " + this.name + " index: " + this.index;
     }
 
 }
