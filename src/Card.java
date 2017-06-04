@@ -19,16 +19,13 @@ public class Card {
         this.faceDown = true;
         this.index = index;
     }
-/*
+
     public Card() {
         this.name = "name";//this will become a parameter later on
         this.imagePath = "resources/vogel.jpg";
         this.onBoard = true;
         this.faceDown = true;
     }
-*/
-
-
 
     public int getIndex() {
         return index;
@@ -60,7 +57,9 @@ public class Card {
         }
     }
 
-
+    //THIS IMPLIES THAT THE WHOLE IS REMOVED, WHILE IT IS NOT.
+    //THIS CHOULD BE CALLED SOMETHING LIKE DISABLE CARD.
+    //BECAUSE IT DISABLES THE CARD :P
     public void removeMe(){
         //change image to "empty image"
         this.onBoard = false;
@@ -100,8 +99,23 @@ public class Card {
         return button;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public boolean isFaceDown() {
+        return faceDown;
+    }
+
+    public boolean isOnBoard() {
+        return onBoard;
+    }
+
     public String toString(){
         return "name: " + this.name + " index: " + this.index;
     }
-
 }

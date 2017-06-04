@@ -1,32 +1,36 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-
 
 /**
  * Created by Tabitha on 15-5-2017.
+ * Refactored by Arthur on 03-06-2017.
  */
-public class Main extends JPanel implements MouseListener{
+public class Main extends JPanel {
+
+    private JTextField IPInput;
+    private JButton connectButton;
+    private JButton hostButton;
+    private JTextField statusField;
+    private int numberOfCards;
+
     public static void main(String[] args) {
-        //create cardslist
-        CardList cardList = new CardList(createCardsArrayList());
-        cardList.shuffle();
-        cardList.printCardList();
 
         // Create window
         JFrame frame = new JFrame("Memory");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(700,420);
-
         frame.setContentPane(new Main());
+        frame.setVisible(true);
+    }
+
+    public Main()
+    {
+        //Set default port
+        int port = 8001;
+        numberOfCards = 24;
 
         // Create Border Layout
-        Container pane = frame.getContentPane();
-        pane.setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
 
         //create JPanels
         JPanel connectionPanel = new JPanel();
@@ -44,19 +48,55 @@ public class Main extends JPanel implements MouseListener{
         scoreBoard.setSize(new Dimension(100,400));
 
         //add things to JPanels
+
         //connectionPanel
-        JTextField IPInput = new JTextField(); //input for IP address
-        IPInput.setSize(new Dimension(400,20)); //todo make fixed
+
+        //input field for IP address
+        IPInput = new JTextField();
+        IPInput.setSize(new Dimension(400,20));
+        IPInput.setColumns(10);
         connectionPanel.add(IPInput);
 
-        JButton connect = new JButton("Connect"); //button that connects to IP address
-        connect.setPreferredSize(new Dimension(100,20));
-        connectionPanel.add(connect);
+        //button that connects to IP address
+        connectButton = new JButton("Connect");
+        connectButton.setPreferredSize(new Dimension(100,20));
+        connectButton.addActionListener(new ConnectGame(IPInput, port, this));
+        connectionPanel.add(connectButton);
 
-        JLabel connection = new JLabel("connection status");
-        connectionPanel.add(connection);
+        //Button that enables clients to connect to this client.
+        hostButton = new JButton("Host Game");
+        hostButton.setPreferredSize(new Dimension(100, 20));
+        hostButton.addActionListener(new HostGame(port, this));
+        connectionPanel.add(hostButton);
 
-        //scoreBoard
+        //Field that displays of you are hosting, connected or disconnected.
+        statusField = new JTextField();
+        statusField.setSize(new Dimension(400,20)); //todo make fixed
+        statusField.setColumns(30);
+        statusField.setEditable(false);
+        connectionPanel.add(statusField);
+
+        //GameBoard
+
+        //import image
+        //THIS SHOULD BE DONE IN THE CARDLIST CLASS AND SHOULD BE REMOVED.
+        /*
+        BufferedImage image;
+        try {
+            image = ImageIO.read(new File("images/vogel.jpg")); //todo make path work
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+        //Generate a empty list of buttons for an empty board.
+        for (int i = 0; i < numberOfCards; i++){
+            JButton button = new JButton(Integer.toString((i + 1)));
+            button.setSize(100,100);
+            button.setEnabled(false);
+            gameBoard.add(button);
+        }
+
+        //ScoreBoard
         JLabel scorePlayer1 = new JLabel("Player 1: -");
         JLabel scorePlayer2 = new JLabel("Player 2: -");
         JLabel cardsLeft = new JLabel("Cards left: -");
@@ -67,49 +107,45 @@ public class Main extends JPanel implements MouseListener{
         scoreBoard.add(cardsLeft);
         scoreBoard.add(newGame);
 
-        // todo replace with the function new game uses later
-        for (int i = 0; i < 24; i++){
-            Card card = cardList.cards.get(i);
-            JButton button = card.putOnBoard();
-            button.setSize(100,100);
-            gameBoard.add(button);
-        }
+        //Add everything to pane
+        add(connectionPanel, BorderLayout.PAGE_START);
+        add(gameBoard, BorderLayout.CENTER);
+        add(scoreBoard, BorderLayout.LINE_END);
 
-        //add everything to pane
-        pane.add(connectionPanel, BorderLayout.PAGE_START);
-        pane.add(gameBoard, BorderLayout.CENTER);
-        pane.add(scoreBoard, BorderLayout.LINE_END);
+        //Display default startmessage
+        statusField.setForeground(Color.BLACK);
+        statusField.setText("Start a game by hosting or connecting");
 
         //refresh window
-        frame.repaint();
-        frame.setVisible(true);
+        repaint();
     }
 
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
+    public void updateStatusField(String text, Color color) {
+        statusField.setText(text);
+        statusField.setForeground(color);
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-
+    public void toggleHostButton(boolean value) {
+        hostButton.setEnabled(value);
     }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
+    public void toggleConnectButton (boolean value) {
+        connectButton.setEnabled(value);
     }
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
+    public void updateConnectButton (String text) {
+        connectButton.setText(text);
     }
 
-    @Override
-    public void mouseExited(MouseEvent e) {
-
+    public void toggleIpInputField (boolean value) {
+        IPInput.setEnabled(value);
     }
+
+    /*
+    THIS SHOULD NOT BE DONE IN THE MAIN CLASS.
+    THE CLASS CARDLIST IS CREATED TO HANDLE EVERYTHING AROUND THE CARDLIST.
+    IF THE CARDLIST CLASS DOES NOT GENERATE THE LIST OF CARDS, THE CARDLIST CLASS -
+    IS NO MORE THAN A COMPLICATED ARRAYLIST.
 
     //creates arraylist that has all the cards
     public static ArrayList<Card> createCardsArrayList(){
@@ -137,12 +173,15 @@ public class Main extends JPanel implements MouseListener{
         }
         return cards;
     }
-/*
+    */
+
+    /*
+    WHAT DOES THIS??
+
     //eventhandlers
     private class Handlers implements ActionListener{
         public void actionPerformed(ActionEvent event){
 
         }
-    }
-*/
+    }*/
 }
