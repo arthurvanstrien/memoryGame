@@ -14,6 +14,7 @@ public class Main extends JPanel {
     private int numberOfCards;
     private JLabel scorePlayer1;
     private JLabel scorePlayer2;
+    private JLabel cardsLeft;
 
 
     public static void main(String[] args) {
@@ -100,15 +101,19 @@ public class Main extends JPanel {
         }
 
         //ScoreBoard
-        scorePlayer1 = new JLabel("Player 1: -");
-        scorePlayer2 = new JLabel("Player 2: -");
-        JLabel cardsLeft = new JLabel("Cards left: -");
-        JButton newGame = new JButton("New Game");
-        newGame.setSize(100,25);
+        JLabel playerOne = new JLabel("Player 1:");
+        scorePlayer1 = new JLabel("-");
+        JLabel playerTwo = new JLabel("Player 2:");
+        scorePlayer2 = new JLabel("-");
+        JLabel cards = new JLabel("Cards left:");
+        cardsLeft = new JLabel("-");
+
+        scoreBoard.add(playerOne);
         scoreBoard.add(scorePlayer1);
+        scoreBoard.add(playerTwo);
         scoreBoard.add(scorePlayer2);
+        scoreBoard.add(cards);
         scoreBoard.add(cardsLeft);
-        scoreBoard.add(newGame);
 
         //Add everything to pane
         add(connectionPanel, BorderLayout.PAGE_START);
@@ -128,11 +133,15 @@ public class Main extends JPanel {
     }
 
     public void updateScorePlayerOne(int score) {
-        scorePlayer1.setText("Player 1: " + Integer.toString(score));
+        scorePlayer1.setText(Integer.toString(score));
     }
 
     public void updateScorePlayerTwo(int score) {
-        scorePlayer2.setText("Player 2: " + Integer.toString(score));
+        scorePlayer2.setText(Integer.toString(score));
+    }
+
+    public void updateCardsLeft(int cardsLeft) {
+        this.cardsLeft.setText(Integer.toString(cardsLeft));
     }
 
     public void toggleHostButton(boolean value) {
