@@ -12,6 +12,8 @@ public class Main extends JPanel {
     private JButton hostButton;
     private JTextField statusField;
     private int numberOfCards;
+    private JLabel scorePlayer1;
+    private JLabel scorePlayer2;
 
     public static void main(String[] args) {
 
@@ -97,8 +99,8 @@ public class Main extends JPanel {
         }
 
         //ScoreBoard
-        JLabel scorePlayer1 = new JLabel("Player 1: -");
-        JLabel scorePlayer2 = new JLabel("Player 2: -");
+        scorePlayer1 = new JLabel("Player 1: -");
+        scorePlayer2 = new JLabel("Player 2: -");
         JLabel cardsLeft = new JLabel("Cards left: -");
         JButton newGame = new JButton("New Game");
         newGame.setSize(100,25);
@@ -123,6 +125,14 @@ public class Main extends JPanel {
     public void updateStatusField(String text, Color color) {
         statusField.setText(text);
         statusField.setForeground(color);
+    }
+
+    public void updateScorePlayerOne(int score) {
+        scorePlayer1.setText("Player 1: " + Integer.toString(score));
+    }
+
+    public void updateScorePlayerTwo(int score) {
+        scorePlayer2.setText("Player 2: " + Integer.toString(score));
     }
 
     public void toggleHostButton(boolean value) {
