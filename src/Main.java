@@ -184,14 +184,4 @@ public class Main extends JPanel {
         return cards;
     }
     */
-
-    /*
-    WHAT DOES THIS??
-
-    //eventhandlers
-    private class Handlers implements ActionListener{
-        public void actionPerformed(ActionEvent event){
-
-        }
-    }*/
 }
