@@ -1,6 +1,8 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by Tabitha on 23-5-2017.
@@ -12,11 +14,15 @@ public class Card {
     private boolean onBoard;
     private int index; //place on the board and index in CardsList
 
+    JButton button;
+
     public Card() {
         this.name = "name";//this will become a parameter later on
         this.imagePath = "resources/vogel.jpg";
         this.onBoard = true;
         this.faceDown = true;
+        this.button = new JButton();
+
     }
 
     public Card(String name, int index){
@@ -66,23 +72,20 @@ public class Card {
     }
 
     public boolean sameCards(Card other){
-        if (this.name == other.name){
-            return true;
-        } else {
-            return false;
-        }
+        return (this.name == other.name);
     }
 
-    public JButton putOnBoard(){
-        JButton button = new JButton();
+
+    public void putOnBoard(){
+
         if (onBoard) {
             try {
                 Image img = ImageIO.read(getClass().getResource(this.imagePath));
                 Image back = ImageIO.read(getClass().getResource("/resources/images/back.jpg"));
                 if (faceDown) {
-                    button.setIcon(new ImageIcon(back));
+                    this.button.setIcon(new ImageIcon(back));
                 } else {
-                    button.setIcon(new ImageIcon(img));
+                    this.button.setIcon(new ImageIcon(img));
                 }
             } catch (Exception ex) {
                 System.out.println(ex);
@@ -90,14 +93,17 @@ public class Card {
         } else {
             try {
                 Image img = ImageIO.read(getClass().getResource("/resources/images/empty.jpg"));
-                button.setIcon(new ImageIcon(img));
+                this.button.setIcon(new ImageIcon(img));
             }
             catch (Exception ex) {
                 System.out.println(ex);
             }
         }
-        return button;
     }
+
+    public JButton getButton() {return button;}
+
+    public void setButton(JButton button) {this.button = button;}
 
     public String getName() {
         return name;

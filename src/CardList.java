@@ -1,3 +1,5 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -19,10 +21,21 @@ public class CardList {
 
     //Create a cardlist with the given number of cards.
     public CardList(int numberOf) {
+
         for (int i = 0; i <= numberOf; i++){
 
             Card card = new Card();//todo maybe add parameters later
             card.setIndex(i);
+
+            final int cardIndex= i;
+
+            card.getButton().addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println( "Index =" + cardIndex );
+                }
+            });
+
             cards.add(card);
         }
     }
@@ -73,6 +86,33 @@ public class CardList {
         for (int i = 0; i < cards.size(); i++) {
             System.out.println(cards.get(i));
         }
+    }
+
+    //creates arraylist that has all the cards
+    public static ArrayList<Card> createCardsArrayList(){
+        ArrayList<Card> cards = new ArrayList<>(24);
+        ArrayList<String> names = new ArrayList<>(12);
+        names.add("case");
+        names.add("cpu");
+        names.add("cpufan");
+        names.add("fan");
+        names.add("gpu");
+        names.add("hdd");
+        names.add("mobo");
+        names.add("monitor");
+        names.add("mouse");
+        names.add("psu");
+        names.add("ram");
+        names.add("ssd");
+
+        for (int i = 0; i < 12; i++){
+            int secondIndex = i + 12;
+            cards.add(new Card(names.get(i), i));
+            cards.add(new Card(names.get(i), secondIndex));
+            //adds two indentical cards to cards
+            System.out.println(names.get(i));
+        }
+        return cards;
     }
 }
 

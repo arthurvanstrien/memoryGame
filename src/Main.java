@@ -15,6 +15,7 @@ public class Main extends JPanel {
     private JLabel scorePlayer1;
     private JLabel scorePlayer2;
 
+
     public static void main(String[] args) {
 
         // Create window
@@ -156,31 +157,5 @@ public class Main extends JPanel {
     IF THE CARDLIST CLASS DOES NOT GENERATE THE LIST OF CARDS, THE CARDLIST CLASS -
     IS NO MORE THAN A COMPLICATED ARRAYLIST.
 
-    //creates arraylist that has all the cards
-    public static ArrayList<Card> createCardsArrayList(){
-        ArrayList<Card> cards = new ArrayList<>(24);
-        ArrayList<String> names = new ArrayList<>(12);
-        names.add("case");
-        names.add("cpu");
-        names.add("cpufan");
-        names.add("fan");
-        names.add("gpu");
-        names.add("hdd");
-        names.add("mobo");
-        names.add("monitor");
-        names.add("mouse");
-        names.add("psu");
-        names.add("ram");
-        names.add("ssd");
-
-        for (int i = 0; i < 12; i++){
-            int secondIndex = i + 12;
-            cards.add(new Card(names.get(i), i));
-            cards.add(new Card(names.get(i), secondIndex));
-            //adds two indentical cards to cards
-            System.out.println(names.get(i));
-        }
-        return cards;
-    }
     */
 }
