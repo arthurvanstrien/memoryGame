@@ -12,19 +12,19 @@ public class Card {
     private boolean onBoard;
     private int index; //place on the board and index in CardsList
 
+    public Card() {
+        this.name = "name";//this will become a parameter later on
+        this.imagePath = "resources/vogel.jpg";
+        this.onBoard = true;
+        this.faceDown = true;
+    }
+
     public Card(String name, int index){
         this.name = name;
         this.imagePath = "resources/images/" + name +".jpg";
         this.onBoard = true;
         this.faceDown = true;
         this.index = index;
-    }
-
-    public Card() {
-        this.name = "name";//this will become a parameter later on
-        this.imagePath = "resources/vogel.jpg";
-        this.onBoard = true;
-        this.faceDown = true;
     }
 
     public int getIndex() {
