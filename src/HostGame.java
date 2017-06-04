@@ -35,7 +35,7 @@ public class HostGame implements ActionListener{
         } else {
 
             //Generate a list of cards.
-            cardList = new CardList();
+            cardList = new CardList(24);
             cardList.shuffle();
 
             new Thread( () -> {
