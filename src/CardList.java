@@ -16,38 +16,23 @@ public class CardList {
     }
 
     //Create an empty cardslist.
+    //This is for construction a list of cards from the names recieved by the client.
     public CardList() {
+        cards = new ArrayList<>();
     }
 
-    //Create a cardlist with the given number of cards.
-    public CardList(int numberOf) {
+    //shuffles the cards in the ArrayList of the CardList class.
+    public void shuffle(){
 
-        for (int i = 0; i <= numberOf; i++){
+        System.out.println(cards.size());
 
-            Card card = new Card();//todo maybe add parameters later
-            card.setIndex(i);
-
-            final int cardIndex= i;
-
-            card.getButton().addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    System.out.println( "Index =" + cardIndex );
-                }
-            });
-
-            cards.add(card);
-        }
-    }
-
-    //shuffles all the cards
-    public ArrayList shuffle(){
         Collections.shuffle(cards);
+
+        //makes the index match the index again
         for (int i = 0; i < cards.size(); i++){
             this.cards.get(i).setIndex(i);
-        } //makes the index match the index again
+        }
         System.out.println("cardlist shuffled");
-        return cards;
     }
 
     //puts all the cards om the board/refreshes
