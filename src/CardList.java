@@ -140,6 +140,8 @@ public class CardList {
             System.out.println("No Match: " + cardOne + " and " +cardTwo);
         }
 
+        cards.get(cardOne).turnAround();
+        cards.get(cardTwo).turnAround();
         toggleCards(false);
         sendData.endTurn();
     }
