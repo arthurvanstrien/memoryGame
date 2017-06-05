@@ -55,7 +55,7 @@ public class Card {
     }
 
     //THIS IMPLIES THAT THE WHOLE IS REMOVED, WHILE IT IS NOT.
-    //THIS CHOULD BE CALLED SOMETHING LIKE DISABLE CARD.
+    //THIS SHOULD BE CALLED SOMETHING LIKE DISABLE CARD.
     //BECAUSE IT DISABLES THE CARD :P
     public void removeMe(){
         //change image to "empty image"
