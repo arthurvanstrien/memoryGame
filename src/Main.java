@@ -159,12 +159,4 @@ public class Main extends JPanel {
     public void toggleIpInputField (boolean value) {
         IPInput.setEnabled(value);
     }
-
-    /*
-    THIS SHOULD NOT BE DONE IN THE MAIN CLASS.
-    THE CLASS CARDLIST IS CREATED TO HANDLE EVERYTHING AROUND THE CARDLIST.
-    IF THE CARDLIST CLASS DOES NOT GENERATE THE LIST OF CARDS, THE CARDLIST CLASS -
-    IS NO MORE THAN A COMPLICATED ARRAYLIST.
-
-    */
 }
