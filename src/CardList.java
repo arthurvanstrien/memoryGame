@@ -106,9 +106,11 @@ public class CardList {
     public void cardSelected(int cardNumber) {
         if(cardNumber == selectedCardOne) {
             cards.get(cardNumber).turnAround();
+            checkTurnedBack();
         }
         else if(cardNumber == selectedCardTwo) {
             cards.get(cardNumber).turnAround();
+            checkTurnedBack();
 
         }
         else {
@@ -158,6 +160,8 @@ public class CardList {
     private void checkTurnedBack() {
         if(cards.get(selectedCardOne).isFaceDown() && cards.get(selectedCardTwo).isFaceDown()) {
             sendData.endTurn();
+            selectedCardOne = -1;
+            selectedCardTwo = -1;
             toggleCards(false);
         }
     }
