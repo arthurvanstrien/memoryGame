@@ -79,7 +79,7 @@ public class HostGame implements ActionListener{
 
                     //The client always begins.
                     myTurn = false;
-
+                    cardList.toggleCards(false);
 
                     while (hosting == true) {
 
