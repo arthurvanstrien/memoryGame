@@ -91,8 +91,7 @@ public class ConnectGame implements ActionListener {
 
                                 if(type.equals("CLICKED")) {
                                     int clickedCard = inputStream.readInt();
-
-                                    //Turn that card in the GUI.
+                                    cardList.getCard(clickedCard).turnAround();
                                 }
                                 else if(type.equals("MATCH")) {
                                     int card1 = inputStream.readInt();
