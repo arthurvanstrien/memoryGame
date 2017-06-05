@@ -84,45 +84,39 @@ public class ConnectGame implements ActionListener {
 
 
                     while (connected) {
+                        
+                        //Recieving data from other player
+                        while (!myTurn) {
+                            String type = inputStream.readUTF();
+                            type.toUpperCase(); //In case someone sends lowercase characters.
 
-                        if(myTurn) {
-                            //Sending data to other player.
-
-                            //Stuff from buttons on the screens happens here.
-                        }
-                        else {
-                            //Recieving data from other player
-                            while (!myTurn) {
-                                String type = inputStream.readUTF();
-                                type.toUpperCase(); //In case someone sends lowercase characters.
-
-                                if(type.equals("CLICKED")) {
-                                    int clickedCard = inputStream.readInt();
-                                    cardList.getCard(clickedCard).turnAround();
-                                    if(cardClickedOne == -1)
-                                        cardClickedOne = clickedCard;
-                                    else
-                                        cardClickedTwo = clickedCard;
-                                }
-                                else if(type.equals("MATCH")) {
-                                    System.out.println("Match Recieved");
-                                    int card1 = inputStream.readInt();
-                                    int card2 = inputStream.readInt();
-                                    main.updateScorePlayerTwo();
-                                    main.updateCardsLeft();
-                                    cardList.toggleCards(true);
-                                    cardList.addMatchedCard(card1);
-                                    cardList.addMatchedCard(card2);
-                                    cardList.getCard(cardClickedOne).turnAround();
-                                    cardList.getCard(cardClickedTwo).turnAround();
-                                }
-                                else if (type.equals("ENDTURN")) {
-                                    System.out.println("EBD TURN RECIEVED");
-                                    cardList.getCard(cardClickedOne).turnAround();
-                                    cardList.getCard(cardClickedTwo).turnAround();
-                                    cardClickedOne = -1;
-                                    myTurn = true;
-                                }
+                            if(type.equals("CLICKED")) {
+                                int clickedCard = inputStream.readInt();
+                                cardList.getCard(clickedCard).turnAround();
+                                if(cardClickedOne == -1)
+                                    cardClickedOne = clickedCard;
+                                else
+                                    cardClickedTwo = clickedCard;
+                            }
+                            else if(type.equals("MATCH")) {
+                                System.out.println("Match Recieved");
+                                int card1 = inputStream.readInt();
+                                int card2 = inputStream.readInt();
+                                main.updateScorePlayerTwo();
+                                main.updateCardsLeft();
+                                cardList.toggleCards(true);
+                                cardList.addMatchedCard(card1);
+                                cardList.addMatchedCard(card2);
+                                cardList.getCard(cardClickedOne).turnAround();
+                                cardList.getCard(cardClickedTwo).turnAround();
+                            }
+                            else if (type.equals("ENDTURN")) {
+                                System.out.println("EBD TURN RECIEVED");
+                                cardList.getCard(cardClickedOne).turnAround();
+                                cardList.getCard(cardClickedTwo).turnAround();
+                                cardList.toggleCards(true);
+                                cardClickedOne = -1;
+                                myTurn = true;
                             }
                         }
                     }
