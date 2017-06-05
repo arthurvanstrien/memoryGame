@@ -108,6 +108,7 @@ public class HostGame implements ActionListener{
                                     cardList.getCard(clickedCard).turnAround();
                                 }
                                 else if(type.equals("MATCH")) {
+                                    System.out.println("Match Recieved");
                                     int card1 = inputStream.readInt();
                                     int card2 = inputStream.readInt();
                                     main.updateScorePlayerTwo();
@@ -115,6 +116,8 @@ public class HostGame implements ActionListener{
                                     cardList.toggleCards(true);
                                     cardList.addMatchedCard(card1);
                                     cardList.addMatchedCard(card2);
+                                    cardList.getCard(card1).turnAround();
+                                    cardList.getCard(card2).turnAround();
                                 }
                                 else if (type.equals("ENDTURN")) {
                                     myTurn = true;
