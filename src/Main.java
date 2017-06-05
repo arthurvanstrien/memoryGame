@@ -1,5 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Tabitha on 15-5-2017.
@@ -15,6 +19,7 @@ public class Main extends JPanel {
     private JLabel scorePlayer1;
     private JLabel scorePlayer2;
     private JLabel cardsLeft;
+    private JPanel gameBoard;
 
 
     public static void main(String[] args) {
@@ -31,6 +36,8 @@ public class Main extends JPanel {
     {
         //Set default port
         int port = 8001;
+
+        //Set default number of cards.
         numberOfCards = 24;
 
         // Create Border Layout
@@ -38,7 +45,7 @@ public class Main extends JPanel {
 
         //create JPanels
         JPanel connectionPanel = new JPanel();
-        JPanel gameBoard = new JPanel();
+         gameBoard = new JPanel();
         JPanel scoreBoard = new JPanel();
 
         //set layout managers
@@ -81,8 +88,6 @@ public class Main extends JPanel {
         connectionPanel.add(messageField);
 
         //GameBoard
-
-
 
         //Generate a empty list of buttons for an empty board.
         for (int i = 0; i < numberOfCards; i++){
@@ -147,5 +152,16 @@ public class Main extends JPanel {
 
     public void toggleIpInputField (boolean value) {
         IPInput.setEnabled(value);
+    }
+
+    public  void putCardsOnBoard(ArrayList<Card> cards) {
+        gameBoard.removeAll();
+
+        for (int i = 0;  i < 24; i++){
+            //Adds a new cards with this index to the board.
+            gameBoard.add(cards.get(i).getButton());
+        }
+
+        revalidate();
     }
 }
