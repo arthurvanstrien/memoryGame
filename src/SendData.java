@@ -23,4 +23,12 @@ public class SendData {
             e.printStackTrace();
         }
     }
+
+    public void endTurn() {
+        try {
+            outputStream.writeUTF("ENDTURN");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
