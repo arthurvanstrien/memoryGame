@@ -133,7 +133,7 @@ public class CardList {
                 main.updateScorePlayerOne();
             else
                 main.updateScorePlayerTwo();
-            
+
             sendData.endTurn();
         }
         else {

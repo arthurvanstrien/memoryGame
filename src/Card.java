@@ -65,10 +65,6 @@ public class Card implements ActionListener{
         this.onBoard = false;
     }
 
-    public boolean sameCards(Card other){
-        return (this.name == other.name);
-    }
-
     public JButton getButton() {
         return button;
     }
