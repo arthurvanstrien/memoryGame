@@ -83,7 +83,6 @@ public class HostGame implements ActionListener{
                     for(int i = 0; i < cardList.getNumberOf(); i++) {
 
                         outputStream.writeUTF(cardList.getCard(i).getName());
-                        System.out.println(cardList.getCard(i).getName());
                     }
 
 
