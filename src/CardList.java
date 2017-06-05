@@ -105,5 +105,26 @@ public class CardList {
             System.out.println(cards.get(i).getName());
         }
     }
+
+    private void match(int cardOne, int cardTwo) {
+        if(cards.get(cardOne).getName().equals(cards.get(cardTwo).getName())) {
+            System.out.println("Match: " + cardOne + " and " +cardTwo);
+            sendData.match(cardOne, cardTwo);
+            main.updateCardsLeft();
+            matchedCards.add(cardOne);
+            matchedCards.add(cardTwo);
+
+            if(player == 1)
+                main.updateScorePlayerOne();
+            else
+                main.updateScorePlayerTwo();
+            
+            sendData.endTurn();
+        }
+        else {
+            System.out.println("No Match: " + cardOne + " and " +cardTwo);
+            sendData.endTurn();
+        }
+    }
 }
 
