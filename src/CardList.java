@@ -32,7 +32,7 @@ public class CardList {
     }
 
     //Fills the arrayList with cards.
-    public void fillList(){
+    public void fillList(SendData sendData){
         ArrayList<String> names = new ArrayList<>(12);
         names.add("case");
         names.add("cpu");
@@ -51,8 +51,8 @@ public class CardList {
             int secondIndex = i + 12;
 
             //adds two indentical cards to cards
-            cards.add(new Card(names.get(i), i));
-            cards.add(new Card(names.get(i), secondIndex));
+            cards.add(new Card(names.get(i), i, sendData));
+            cards.add(new Card(names.get(i), secondIndex, sendData));
 
         }
     }
@@ -81,8 +81,8 @@ public class CardList {
     }
 
     //Cards can be added by just there image string.
-    public void addCardByString(String name, int index) {
-        Card card = new Card(name, index);
+    public void addCardByString(String name, int index, SendData sendData) {
+        Card card = new Card(name, index, sendData);
         cards.add(card);
     }
 
