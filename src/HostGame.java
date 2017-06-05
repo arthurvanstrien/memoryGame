@@ -62,9 +62,6 @@ public class HostGame implements ActionListener{
                     //The client always begins.
                     myTurn = false;
 
-                    //Draw the cards on the board of the host.
-                    main.putCardsOnBoard(cardList.getCards());
-
                     //Create data input and output streams
                     DataInputStream inputStream = new DataInputStream(socket.getInputStream());
                     DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
@@ -75,6 +72,9 @@ public class HostGame implements ActionListener{
                     cardList = new CardList();
                     cardList.fillList(sendData);
                     cardList.shuffle();
+
+                    //Draw the cards on the board of the host.
+                    main.putCardsOnBoard(cardList.getCards());
 
                     //Send how many cards we are going to send.
                     outputStream.writeInt(cardList.getNumberOf());
