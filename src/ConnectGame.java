@@ -55,9 +55,14 @@ public class ConnectGame implements ActionListener {
                     main.toggleIpInputField(false);
                     connected = true;
 
+                    //The client always begins.
+                    myTurn = true;
+
                     //Create data input and output streams
                     DataInputStream inputStream = new DataInputStream(socket.getInputStream());
                     DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+
+                    SendData sendData = new SendData(outputStream, myTurn);
 
                     //Send how many cards we are going to send.
                     int numberOfCards = inputStream.readInt();
@@ -66,13 +71,10 @@ public class ConnectGame implements ActionListener {
                     for(int i = 0; i < numberOfCards; i++) {
 
                         String nameOfCard = inputStream.readUTF();
-                        cardList.addCardByString(nameOfCard, i);
+                        cardList.addCardByString(nameOfCard, i, sendData);
                     }
 
                     main.putCardsOnBoard(cardList.getCards());
-
-                    //The client always begins.
-                    myTurn = true;
 
 
                     while (connected == true) {
