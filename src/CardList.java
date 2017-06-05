@@ -89,7 +89,7 @@ public class CardList {
 
     //Cards can be added by just there image string.
     public void addCardByString(String name, int index, SendData sendData) {
-        Card card = new Card(name, index, sendData);
+        Card card = new Card(name, index, sendData, this);
         cards.add(card);
     }
 

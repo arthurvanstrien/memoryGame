@@ -16,11 +16,13 @@ public class Card implements ActionListener{
     private int index; //place on the board and index in CardsList
     private JButton button;
     private SendData sendData;
+    private CardList cards;
 
-    public Card(String name, int index, SendData sendData){
+    public Card(String name, int index, SendData sendData, CardList cards){
         this.name = name;
         this.sendData = sendData;
         this.index = index;
+        this.cards = cards;
         onBoard = true;
         faceDown = true;
 
@@ -89,5 +91,6 @@ public class Card implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         turnAround();
         sendData.clicked(index);
+        cards.cardSelected(index);
     }
 }
