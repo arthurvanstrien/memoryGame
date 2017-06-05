@@ -16,15 +16,6 @@ public class Card {
 
     private JButton button;
 
-    public Card() {
-        this.name = "name";//this will become a parameter later on
-        this.imagePath = "resources/vogel.jpg";
-        this.onBoard = true;
-        this.faceDown = true;
-        this.button = new JButton();
-
-    }
-
     public Card(String name, int index){
         this.name = name;
         this.imagePath = "resources/images/" + name +".jpg";
