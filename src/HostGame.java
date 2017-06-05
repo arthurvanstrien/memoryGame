@@ -24,6 +24,10 @@ public class HostGame implements ActionListener{
         this.hosting = false;
     }
 
+    public void clicked() {
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -33,11 +37,6 @@ public class HostGame implements ActionListener{
             //main.getHostButton().setText("Host Game");
 
         } else {
-
-            //Generate a list of cards.
-            cardList = new CardList();
-            cardList.fillList();
-            cardList.shuffle();
 
             new Thread( () -> {
 
@@ -60,12 +59,22 @@ public class HostGame implements ActionListener{
                     //Message client connected
                     main.updateMessageField("Client connected, game started", Color.GREEN);
 
+                    //The client always begins.
+                    myTurn = false;
+
                     //Draw the cards on the board of the host.
                     main.putCardsOnBoard(cardList.getCards());
 
                     //Create data input and output streams
                     DataInputStream inputStream = new DataInputStream(socket.getInputStream());
                     DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+
+                    SendData sendData = new SendData(outputStream, myTurn);
+
+                    //Generate a list of cards.
+                    cardList = new CardList();
+                    cardList.fillList(sendData);
+                    cardList.shuffle();
 
                     //Send how many cards we are going to send.
                     outputStream.writeInt(cardList.getNumberOf());
@@ -77,16 +86,13 @@ public class HostGame implements ActionListener{
                         System.out.println(cardList.getCard(i).getName());
                     }
 
-                    //The client always begins.
-                    myTurn = false;
+
                     cardList.toggleCards(false);
 
                     while (hosting == true) {
 
                         if(myTurn = true) {
-                            //Sending data to other player.
 
-                            //Stuff from buttons on the screens happens here.
                         }
                         else {
                             //Recieving data from other player
