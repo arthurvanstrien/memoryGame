@@ -7,12 +7,13 @@ import java.util.Collections;
 public class CardList {
 
     private ArrayList<Card> cards;
-    private ArrayList<Integer> machedCards;
+    private ArrayList<Integer> matchedCards;
 
     //Create an empty cardslist.
     //This is for construction a list of cards from the names recieved by the client.
     public CardList() {
         cards = new ArrayList<>();
+        matchedCards = new ArrayList<>();
     }
 
     //shuffles the cards in the ArrayList of the CardList class.
@@ -58,7 +59,7 @@ public class CardList {
     //If the card is matched, it wont get enabled again when its the players turn.
     public void toggleCards(Boolean value) {
         for (int i = 0; i < 24; i++) {
-            if (!machedCards.contains(i))
+            if (!matchedCards.contains(i))
                 cards.get(i).getButton().setEnabled(value);
         }
     }
@@ -85,7 +86,7 @@ public class CardList {
     }
 
     public void addMatchedCard(int cardNumber) {
-        machedCards.add(cardNumber);
+        matchedCards.add(cardNumber);
         cards.get(cardNumber).getButton().setEnabled(false);
     }
 
