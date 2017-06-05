@@ -84,6 +84,11 @@ public class CardList {
         cards.add(card);
     }
 
+    public void addMatchedCard(int cardNumber) {
+        machedCards.add(cardNumber);
+        cards.get(cardNumber).getButton().setEnabled(false);
+    }
+
     //Prints the list of cards in the console.
     //This is for debugging.
     public void printCardList() {
