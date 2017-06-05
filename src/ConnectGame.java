@@ -77,9 +77,9 @@ public class ConnectGame implements ActionListener {
                     main.putCardsOnBoard(cardList.getCards());
 
 
-                    while (connected == true) {
+                    while (connected) {
 
-                        if(myTurn == true) {
+                        if(myTurn) {
                             //Sending data to other player.
 
                             //Stuff from buttons on the screens happens here.

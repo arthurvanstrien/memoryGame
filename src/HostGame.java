@@ -88,9 +88,9 @@ public class HostGame implements ActionListener{
 
                     cardList.toggleCards(false);
 
-                    while (hosting == true) {
+                    while (hosting) {
 
-                        if(myTurn == true) {
+                        if(myTurn) {
 
                         }
                         else {
