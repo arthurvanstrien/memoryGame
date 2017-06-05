@@ -74,7 +74,7 @@ public class ConnectGame implements ActionListener {
                         cardList.addCardByString(nameOfCard, i, sendData);
                     }
 
-                    main.putCardsOnBoard(cardList.getCards());
+                    main.setCardList(cardList);
 
 
                     while (connected) {

@@ -74,7 +74,7 @@ public class HostGame implements ActionListener{
                     cardList.shuffle();
 
                     //Draw the cards on the board of the host.
-                    main.putCardsOnBoard(cardList.getCards());
+                    main.setCardList(cardList);
 
                     //Send how many cards we are going to send.
                     outputStream.writeInt(cardList.getNumberOf());
