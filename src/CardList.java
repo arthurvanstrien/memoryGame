@@ -77,10 +77,11 @@ public class CardList {
 
         for (int i = 0; i < 12; i++){
             int secondIndex = i + 12;
+
+            //adds two indentical cards to cards
             cards.add(new Card(names.get(i), i));
             cards.add(new Card(names.get(i), secondIndex));
-            //adds two indentical cards to cards
-            System.out.println(names.get(i));
+
         }
     }
 
