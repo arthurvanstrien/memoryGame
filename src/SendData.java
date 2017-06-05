@@ -18,7 +18,7 @@ public class SendData {
 
         try {
             outputStream.writeUTF("CLICKED");
-            outputStream.write(index);
+            outputStream.writeInt(index);
             System.out.println("CLICKED");
         } catch (IOException e) {
             e.printStackTrace();
