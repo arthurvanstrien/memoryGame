@@ -122,7 +122,7 @@ public class HostGame implements ActionListener{
                                 cardList.getCard(cardClickedTwo).turnAround();
                             }
                             else if (type.equals("ENDTURN")) {
-                                System.out.println("EBD TURN RECIEVED");
+                                System.out.println("END TURN RECIEVED");
                                 cardList.getCard(cardClickedOne).turnAround();
                                 cardList.getCard(cardClickedTwo).turnAround();
                                 cardList.toggleCards(true);

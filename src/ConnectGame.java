@@ -82,9 +82,8 @@ public class ConnectGame implements ActionListener {
 
                     main.setCardList(cardList);
 
-
                     while (connected) {
-                        
+
                         //Recieving data from other player
                         while (!myTurn) {
                             String type = inputStream.readUTF();
@@ -111,7 +110,7 @@ public class ConnectGame implements ActionListener {
                                 cardList.getCard(cardClickedTwo).turnAround();
                             }
                             else if (type.equals("ENDTURN")) {
-                                System.out.println("EBD TURN RECIEVED");
+                                System.out.println("END TURN RECIEVED");
                                 cardList.getCard(cardClickedOne).turnAround();
                                 cardList.getCard(cardClickedTwo).turnAround();
                                 cardList.toggleCards(true);
