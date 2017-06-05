@@ -38,24 +38,13 @@ public class Card {
     }
 
     public void turnAround(){
-        if (onBoard) {
-            if (faceDown) {
-                faceDown = false;
-                //todo change image of the card
-                //this.putOnBoard(); //this function probably does that, can't test yet
-
-                /* if (this catrd is the second card){
-                return otherCard
-               } else {
-               nog een kaart laten kiezen
-                    }
-                 */
-                //call sameCards function
-               /* if (sameCards(otherCard)){
-                    //add points
-                    //remove both this card and other card with function //todo make function
-                } */
-            }
+        if (faceDown) {
+            faceDown = false;
+            button.setIcon(image);
+        }
+        else {
+            faceDown = true;
+            button.setIcon(backImage);
         }
     }
 
