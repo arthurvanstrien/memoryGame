@@ -69,6 +69,8 @@ public class ConnectGame implements ActionListener {
                         cardList.addCardByString(nameOfCard, i);
                     }
 
+                    main.putCardsOnBoard(cardList.getCards());
+
                     //The client always begins.
                     myTurn = true;
 
