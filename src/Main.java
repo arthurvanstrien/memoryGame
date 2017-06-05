@@ -103,7 +103,7 @@ public class Main extends JPanel {
         JLabel playerTwo = new JLabel("Player 2:");
         scoreLabelPlayer2 = new JLabel("-");
         JLabel cards = new JLabel("Cards left:");
-        cardsLeftLabel = new JLabel("-");
+        cardsLeftLabel = new JLabel(Integer.toString(cardsLeft));
 
         scoreBoard.add(playerOne);
         scoreBoard.add(scoreLabelPlayer1);
