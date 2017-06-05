@@ -10,15 +10,15 @@ public class CardList {
 
     private ArrayList<Card> cards;
 
-    public CardList(ArrayList<Card> cards) {
-        this.cards = cards;
-        System.out.println("Cardlist intialized");
-    }
-
     //Create an empty cardslist.
     //This is for construction a list of cards from the names recieved by the client.
     public CardList() {
         cards = new ArrayList<>();
+    }
+
+    public CardList(ArrayList<Card> cards) {
+        this.cards = cards;
+        System.out.println("Cardlist intialized");
     }
 
     //shuffles the cards in the ArrayList of the CardList class.
