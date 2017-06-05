@@ -31,4 +31,14 @@ public class SendData {
             e.printStackTrace();
         }
     }
+
+    public void match(int card1, int card2) {
+        try {
+            outputStream.writeUTF("MATCH");
+            outputStream.writeInt(card1);
+            outputStream.writeInt(card2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
