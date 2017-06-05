@@ -34,7 +34,7 @@ public class CardList {
     }
 
     //puts all the cards om the board/refreshes
-    public void drawBoard(){
+    public void drawOnBoard(){
 
         for (int i = 0;  i < 24; i++){
             cards.get(i).putOnBoard();
