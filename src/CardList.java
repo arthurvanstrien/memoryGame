@@ -23,9 +23,7 @@ public class CardList {
 
     //shuffles the cards in the ArrayList of the CardList class.
     public void shuffle(){
-
-        System.out.println(cards.size());
-
+        
         Collections.shuffle(cards);
 
         //makes the index match the index again
