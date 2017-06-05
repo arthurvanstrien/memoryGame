@@ -73,10 +73,6 @@ public class Card implements ActionListener{
         return button;
     }
 
-    public void setButton(JButton button) {
-        this.button = button;
-    }
-
     public String getName() {
         return name;
     }
