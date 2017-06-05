@@ -20,7 +20,13 @@ public class Card {
         imagePath = "resources/images/" + name +".jpg";
         onBoard = true;
         faceDown = true;
-        button = new JButton();
+
+        try {
+            Image back = ImageIO.read(getClass().getResource("/resources/images/back.jpg"));
+            button = new JButton(new ImageIcon(back));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getIndex() {
