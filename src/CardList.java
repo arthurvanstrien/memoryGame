@@ -153,15 +153,13 @@ public class CardList {
         else {
             System.out.println("No Match: " + cardOne + " and " +cardTwo);
         }
-
-        cards.get(cardOne).turnAround();
-        cards.get(cardTwo).turnAround();
-        toggleCards(false);
     }
 
     private void checkTurnedBack() {
-        if(cards.get(selectedCardOne).isFaceDown() && cards.get(selectedCardTwo).isFaceDown())
+        if(cards.get(selectedCardOne).isFaceDown() && cards.get(selectedCardTwo).isFaceDown()) {
             sendData.endTurn();
+            toggleCards(false);
+        }
     }
 }
 
