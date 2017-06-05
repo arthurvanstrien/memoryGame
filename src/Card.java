@@ -71,12 +71,12 @@ public class Card {
 
         if (onBoard) {
             try {
-                Image img = ImageIO.read(getClass().getResource(this.imagePath));
-                Image back = ImageIO.read(getClass().getResource("/resources/images/back.jpg"));
                 if (faceDown) {
+                    Image back = ImageIO.read(getClass().getResource("/resources/images/back.jpg"));
                     this.button.setIcon(new ImageIcon(back));
                 } else {
-                    this.button.setIcon(new ImageIcon(img));
+                    Image img = ImageIO.read(getClass().getResource(this.imagePath));
+                    button.setIcon(new ImageIcon(img));
                 }
             } catch (Exception ex) {
                 System.out.println(ex);
