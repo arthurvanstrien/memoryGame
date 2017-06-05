@@ -42,7 +42,7 @@ public class Card {
             if (faceDown) {
                 faceDown = false;
                 //todo change image of the card
-                this.putOnBoard(); //this function probably does that, can't test yet
+                //this.putOnBoard(); //this function probably does that, can't test yet
 
                 /* if (this catrd is the second card){
                 return otherCard
@@ -69,32 +69,6 @@ public class Card {
 
     public boolean sameCards(Card other){
         return (this.name == other.name);
-    }
-
-
-    public void putOnBoard(){
-
-        if (onBoard) {
-            try {
-                if (faceDown) {
-                    Image back = ImageIO.read(getClass().getResource("/resources/images/back.jpg"));
-                    this.button.setIcon(new ImageIcon(back));
-                } else {
-                    Image img = ImageIO.read(getClass().getResource(this.imagePath));
-                    button.setIcon(new ImageIcon(img));
-                }
-            } catch (Exception ex) {
-                System.out.println(ex);
-            }
-        } else {
-            try {
-                Image img = ImageIO.read(getClass().getResource("/resources/images/empty.jpg"));
-                this.button.setIcon(new ImageIcon(img));
-            }
-            catch (Exception ex) {
-                System.out.println(ex);
-            }
-        }
     }
 
     public JButton getButton() {
