@@ -23,7 +23,7 @@ public class CardList {
 
     //shuffles the cards in the ArrayList of the CardList class.
     public void shuffle(){
-        
+
         Collections.shuffle(cards);
 
         //makes the index match the index again
@@ -34,7 +34,6 @@ public class CardList {
     }
 
     //puts all the cards om the board/refreshes
-    //GUI STUFF SHOULD NOT BE HERE. NEEDS TO BE MOVED URGENT.
     public void drawBoard(){
 
         for (int i = 0;  i < 24; i++){
