@@ -59,8 +59,8 @@ public class CardList {
         }
     }
 
-    //creates arraylist that has all the cards
-    public static ArrayList<Card> createCardsArrayList(){
+    //Fills the arrayList with cards.
+    public void fillList(){
         ArrayList<Card> cards = new ArrayList<>(24);
         ArrayList<String> names = new ArrayList<>(12);
         names.add("case");
@@ -83,7 +83,6 @@ public class CardList {
             //adds two indentical cards to cards
             System.out.println(names.get(i));
         }
-        return cards;
     }
 
     //Returns an arrayList with all the cards.
