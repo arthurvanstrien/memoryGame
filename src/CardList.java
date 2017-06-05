@@ -90,6 +90,13 @@ public class CardList {
         cards.get(cardNumber).getButton().setEnabled(false);
     }
 
+    public void cardSelected(int cardNumber) {
+        if(selectedCardOne == -1)
+            selectedCardOne = cardNumber;
+        else
+            match(selectedCardOne, cardNumber);
+    }
+
     //Prints the list of cards in the console.
     //This is for debugging.
     public void printCardList() {
