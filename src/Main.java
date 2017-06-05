@@ -114,9 +114,6 @@ public class Main extends JPanel {
 
         //Display default startmessage
         updateMessageField("Start a game by hosting or connecting", Color.BLACK);
-
-        //refresh window
-        repaint();
     }
 
     public void updateMessageField(String text, Color color) {
