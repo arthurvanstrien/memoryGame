@@ -66,7 +66,7 @@ public class ConnectGame implements ActionListener {
                     for(int i = 0; i < numberOfCards; i++) {
 
                         String nameOfCard = inputStream.readUTF();
-                        cardList.addCardByString(nameOfCard);
+                        cardList.addCardByString(nameOfCard, i);
                     }
 
                     //The client always begins.
