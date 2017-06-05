@@ -84,10 +84,6 @@ public class Card implements ActionListener{
         return name;
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
-
     public boolean isFaceDown() {
         return faceDown;
     }
