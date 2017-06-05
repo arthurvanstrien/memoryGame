@@ -61,7 +61,6 @@ public class CardList {
 
     //Fills the arrayList with cards.
     public void fillList(){
-        ArrayList<Card> cards = new ArrayList<>(24);
         ArrayList<String> names = new ArrayList<>(12);
         names.add("case");
         names.add("cpu");
