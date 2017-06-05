@@ -15,14 +15,15 @@ public class Card implements ActionListener{
     private boolean onBoard;
     private int index; //place on the board and index in CardsList
     private JButton button;
+    private SendData sendData;
 
-    public Card(String name, int index){
+    public Card(String name, int index, SendData sendData){
         this.name = name;
+        this.sendData = sendData;
         this.index = index;
         onBoard = true;
         faceDown = true;
 
-        //Create the imageIcon for this specific card.
         try {
             image = new ImageIcon(ImageIO.read(getClass().getResource("/resources/images/" + name + ".jpg")));
         } catch (IOException e) {
@@ -32,16 +33,13 @@ public class Card implements ActionListener{
         //Create the imageIcon that is used as back by all cards.
         try {
             backImage = new ImageIcon(ImageIO.read(getClass().getResource("/resources/images/back.jpg")));
-            button = new JButton(backImage);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        button = new JButton(backImage);
         button.addActionListener(this);
-    }
-
-    public int getIndex() {
-        return index;
     }
 
     public void setIndex(int index) {
@@ -98,5 +96,6 @@ public class Card implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         turnAround();
+        sendData.clicked(index);
     }
 }
