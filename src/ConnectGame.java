@@ -79,14 +79,13 @@ public class ConnectGame implements ActionListener {
 
                     while (connected == true) {
 
-                        if(myTurn = true) {
+                        if(myTurn == true) {
                             //Sending data to other player.
 
                             //Stuff from buttons on the screens happens here.
                         }
                         else {
                             //Recieving data from other player
-
                             while (!myTurn) {
                                 String type = inputStream.readUTF();
                                 type.toUpperCase(); //In case someone sends lowercase characters.

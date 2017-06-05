@@ -90,19 +90,21 @@ public class HostGame implements ActionListener{
 
                     while (hosting == true) {
 
-                        if(myTurn = true) {
+                        if(myTurn == true) {
 
                         }
                         else {
                             //Recieving data from other player
 
                             while (!myTurn) {
+
                                 String type = inputStream.readUTF();
                                 type.toUpperCase(); //In case someone sends lowercase characters.
 
                                 if(type.equals("CLICKED")) {
                                     int clickedCard = inputStream.readInt();
                                     cardList.getCard(clickedCard).turnAround();
+
                                 }
                                 else if(type.equals("MATCH")) {
                                     int card1 = inputStream.readInt();
