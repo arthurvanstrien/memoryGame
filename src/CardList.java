@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -9,6 +12,7 @@ public class CardList {
     private ArrayList<Card> cards;
     private ArrayList<Integer> matchedCards;
     private int selectedCardOne;
+    private int selectedCardTwo;
     private SendData sendData;
     private Main main;
     private int player;
@@ -22,6 +26,7 @@ public class CardList {
         cards = new ArrayList<>();
         matchedCards = new ArrayList<>();
         selectedCardOne = -1;
+        selectedCardTwo = -1;
     }
 
     //shuffles the cards in the ArrayList of the CardList class.
@@ -99,10 +104,19 @@ public class CardList {
     }
 
     public void cardSelected(int cardNumber) {
-        if(selectedCardOne == -1)
-            selectedCardOne = cardNumber;
-        else
-            match(selectedCardOne, cardNumber);
+        if(cardNumber == selectedCardOne) {
+            cards.get(cardNumber).turnAround();
+        }
+        else if(cardNumber == selectedCardTwo) {
+            cards.get(cardNumber).turnAround();
+
+        }
+        else {
+            if(selectedCardOne == -1)
+                selectedCardOne = cardNumber;
+            else
+                match(selectedCardOne, cardNumber);
+        }
     }
 
     //Prints the list of cards in the console.
@@ -143,7 +157,11 @@ public class CardList {
         cards.get(cardOne).turnAround();
         cards.get(cardTwo).turnAround();
         toggleCards(false);
-        sendData.endTurn();
+    }
+
+    private void checkTurnedBack() {
+        if(cards.get(selectedCardOne).isFaceDown() && cards.get(selectedCardTwo).isFaceDown())
+            sendData.endTurn();
     }
 }
 
