@@ -99,4 +99,9 @@ public class Card implements ActionListener{
     public String toString(){
         return "name: " + this.name + " index: " + this.index;
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        turnAround();
+    }
 }
