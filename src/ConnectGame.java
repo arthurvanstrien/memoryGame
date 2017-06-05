@@ -22,6 +22,8 @@ public class ConnectGame implements ActionListener {
     private boolean myTurn;
     private CardList cardList;
     private int player;
+    private int cardClickedOne;
+    private int cardClickedTwo;
 
     public  ConnectGame(JTextField ipInput, int port, Main main) {
 
@@ -30,6 +32,8 @@ public class ConnectGame implements ActionListener {
         this.main = main;
         this.connected = false;
         player = 2;
+        cardClickedOne = -1;
+        cardClickedTwo = -1;
     }
 
     @Override
@@ -95,8 +99,13 @@ public class ConnectGame implements ActionListener {
                                 if(type.equals("CLICKED")) {
                                     int clickedCard = inputStream.readInt();
                                     cardList.getCard(clickedCard).turnAround();
+                                    if(cardClickedOne == -1)
+                                        cardClickedOne = clickedCard;
+                                    else
+                                        cardClickedTwo = clickedCard;
                                 }
                                 else if(type.equals("MATCH")) {
+                                    System.out.println("Match Recieved");
                                     int card1 = inputStream.readInt();
                                     int card2 = inputStream.readInt();
                                     main.updateScorePlayerTwo();
@@ -106,6 +115,10 @@ public class ConnectGame implements ActionListener {
                                     cardList.addMatchedCard(card2);
                                 }
                                 else if (type.equals("ENDTURN")) {
+                                    System.out.println("EBD TURN RECIEVED");
+                                    cardList.getCard(cardClickedOne).turnAround();
+                                    cardList.getCard(cardClickedTwo).turnAround();
+                                    cardClickedOne = -1;
                                     myTurn = true;
                                 }
                             }
