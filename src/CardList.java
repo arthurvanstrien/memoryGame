@@ -59,6 +59,14 @@ public class CardList {
         }
     }
 
+    //This method toggles all of the cards in the arrayList on or of.
+    //When turned of, they will be disabled in the GUI (cannot be clicked).
+    public void toggleCards(Boolean value) {
+        for(int i = 0; i < 24; i++) {
+            cards.get(i).getButton().setEnabled(value);
+        }
+    }
+
     //Returns an arrayList with all the cards.
     public ArrayList<Card> getCards() {
         return cards;
