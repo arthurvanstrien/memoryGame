@@ -33,14 +33,6 @@ public class CardList {
         System.out.println("cardlist shuffled");
     }
 
-    //puts all the cards om the board/refreshes
-    public void drawOnBoard(){
-
-        for (int i = 0;  i < 24; i++){
-            cards.get(i).putOnBoard();
-        }
-    }
-
     //Fills the arrayList with cards.
     public void fillList(){
         ArrayList<String> names = new ArrayList<>(12);
