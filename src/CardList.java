@@ -56,8 +56,8 @@ public class CardList {
             int secondIndex = i + 12;
 
             //adds two indentical cards to cards
-            cards.add(new Card(names.get(i), i, sendData));
-            cards.add(new Card(names.get(i), secondIndex, sendData));
+            cards.add(new Card(names.get(i), i, sendData, this));
+            cards.add(new Card(names.get(i), secondIndex, sendData, this));
 
         }
     }
@@ -134,12 +134,14 @@ public class CardList {
             else
                 main.updateScorePlayerTwo();
 
-            sendData.endTurn();
+
         }
         else {
             System.out.println("No Match: " + cardOne + " and " +cardTwo);
-            sendData.endTurn();
         }
+
+        toggleCards(false);
+        sendData.endTurn();
     }
 }
 

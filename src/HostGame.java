@@ -112,6 +112,7 @@ public class HostGame implements ActionListener{
                                     int card2 = inputStream.readInt();
                                     main.updateScorePlayerTwo();
                                     main.updateCardsLeft();
+                                    cardList.toggleCards(true);
                                     cardList.addMatchedCard(card1);
                                     cardList.addMatchedCard(card2);
                                 }
