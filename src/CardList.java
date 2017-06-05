@@ -102,8 +102,8 @@ public class CardList {
     }
 
     //Cards can be added by just there image string.
-    public void addCardByString(String value) {
-        Card card = new Card(); //Why cant I give parameters to a card.
+    public void addCardByString(String name, int index) {
+        Card card = new Card(name, index);
         cards.add(card);
     }
 
