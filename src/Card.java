@@ -92,9 +92,13 @@ public class Card {
         }
     }
 
-    public JButton getButton() {return button;}
+    public JButton getButton() {
+        return button;
+    }
 
-    public void setButton(JButton button) {this.button = button;}
+    public void setButton(JButton button) {
+        this.button = button;
+    }
 
     public String getName() {
         return name;
