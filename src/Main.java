@@ -82,15 +82,7 @@ public class Main extends JPanel {
 
         //GameBoard
 
-        //import image
-        //THIS SHOULD BE DONE IN THE CARDLIST CLASS AND SHOULD BE REMOVED.
-        /*
-        BufferedImage image;
-        try {
-            image = ImageIO.read(new File("images/vogel.jpg")); //todo make path work
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+
 
         //Generate a empty list of buttons for an empty board.
         for (int i = 0; i < numberOfCards; i++){
