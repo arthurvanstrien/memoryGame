@@ -21,6 +21,7 @@ public class ConnectGame implements ActionListener {
     private boolean connected;
     private boolean myTurn;
     private CardList cardList;
+    private int player;
 
     public  ConnectGame(JTextField ipInput, int port, Main main) {
 
@@ -28,6 +29,7 @@ public class ConnectGame implements ActionListener {
         this.ipInput = ipInput;
         this.main = main;
         this.connected = false;
+        player = 2;
     }
 
     @Override
@@ -45,9 +47,6 @@ public class ConnectGame implements ActionListener {
                 try {
                     Socket socket = new Socket(ipInput.getText(), port);
 
-                    //Create an empty cardlist.
-                    cardList = new CardList();
-
                     //We are now connected with a host.
                     main.updateMessageField("Connected, game started", Color.GREEN);
                     main.toggleHostButton(false);
@@ -63,6 +62,9 @@ public class ConnectGame implements ActionListener {
                     DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 
                     SendData sendData = new SendData(outputStream, myTurn);
+
+                    //Create an empty cardlist.
+                    cardList = new CardList(sendData, main, player);
 
                     //Send how many cards we are going to send.
                     int numberOfCards = inputStream.readInt();

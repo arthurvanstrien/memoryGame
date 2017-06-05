@@ -17,11 +17,13 @@ public class HostGame implements ActionListener{
     private Main main;
     private CardList cardList;
     private boolean myTurn;
+    private int player;
 
     public HostGame(int port, Main main) {
         this.port = port;
         this.main = main;
         this.hosting = false;
+        player = 1;
     }
 
     public void clicked() {
@@ -69,8 +71,8 @@ public class HostGame implements ActionListener{
                     SendData sendData = new SendData(outputStream, myTurn);
 
                     //Generate a list of cards.
-                    cardList = new CardList();
-                    cardList.fillList(sendData);
+                    cardList = new CardList(sendData, main, player);
+                    cardList.fillList();
                     cardList.shuffle();
 
                     //Draw the cards on the board of the host.

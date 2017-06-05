@@ -8,12 +8,20 @@ public class CardList {
 
     private ArrayList<Card> cards;
     private ArrayList<Integer> matchedCards;
+    private int selectedCardOne;
+    private SendData sendData;
+    private Main main;
+    private int player;
 
     //Create an empty cardslist.
     //This is for construction a list of cards from the names recieved by the client.
-    public CardList() {
+    public CardList(SendData sendData, Main main, int player) {
+        this.sendData = sendData;
+        this.main = main;
+        this.player = player;
         cards = new ArrayList<>();
         matchedCards = new ArrayList<>();
+        selectedCardOne = -1;
     }
 
     //shuffles the cards in the ArrayList of the CardList class.
@@ -29,7 +37,7 @@ public class CardList {
     }
 
     //Fills the arrayList with cards.
-    public void fillList(SendData sendData){
+    public void fillList(){
         ArrayList<String> names = new ArrayList<>(12);
         names.add("case");
         names.add("cpu");
