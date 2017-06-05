@@ -13,11 +13,13 @@ public class Main extends JPanel {
     private JButton hostButton;
     private JTextField messageField;
     private int numberOfCards;
-    private JLabel scorePlayer1;
-    private JLabel scorePlayer2;
-    private JLabel cardsLeft;
+    private JLabel scoreLabelPlayer1;
+    private JLabel scoreLabelPlayer2;
+    private int scorePlayer1;
+    private int scorePlayer2;
+    private JLabel cardsLeftLabel;
     private JPanel gameBoard;
-
+    private int cardsLeft;
 
     public static void main(String[] args) {
 
@@ -36,6 +38,7 @@ public class Main extends JPanel {
 
         //Set default number of cards.
         numberOfCards = 24;
+        cardsLeft = numberOfCards;
 
         // Create Border Layout
         setLayout(new BorderLayout());
@@ -96,18 +99,18 @@ public class Main extends JPanel {
 
         //ScoreBoard
         JLabel playerOne = new JLabel("Player 1:");
-        scorePlayer1 = new JLabel("-");
+        scoreLabelPlayer1 = new JLabel("-");
         JLabel playerTwo = new JLabel("Player 2:");
-        scorePlayer2 = new JLabel("-");
+        scoreLabelPlayer2 = new JLabel("-");
         JLabel cards = new JLabel("Cards left:");
-        cardsLeft = new JLabel("-");
+        cardsLeftLabel = new JLabel("-");
 
         scoreBoard.add(playerOne);
-        scoreBoard.add(scorePlayer1);
+        scoreBoard.add(scoreLabelPlayer1);
         scoreBoard.add(playerTwo);
-        scoreBoard.add(scorePlayer2);
+        scoreBoard.add(scoreLabelPlayer2);
         scoreBoard.add(cards);
-        scoreBoard.add(cardsLeft);
+        scoreBoard.add(cardsLeftLabel);
 
         //Add everything to pane
         add(connectionPanel, BorderLayout.PAGE_START);
@@ -118,21 +121,34 @@ public class Main extends JPanel {
         updateMessageField("Start a game by hosting or connecting", Color.BLACK);
     }
 
+    public void setCardList(CardList cardList) {
+        gameBoard.removeAll();
+
+        for (int i = 0;  i < 24; i++){
+            //Adds a new cards with this index to the board.
+            gameBoard.add(cardList.getCard(i).getButton());
+        }
+
+        revalidate();
+    }
+
     public void updateMessageField(String text, Color color) {
         messageField.setText(text);
         messageField.setForeground(color);
     }
 
-    public void updateScorePlayerOne(int score) {
-        scorePlayer1.setText(Integer.toString(score));
+    public void updateScorePlayerOne() {
+        scorePlayer1 = scorePlayer1 + 1;
+        scoreLabelPlayer1.setText(Integer.toString(scorePlayer1));
     }
 
-    public void updateScorePlayerTwo(int score) {
-        scorePlayer2.setText(Integer.toString(score));
+    public void updateScorePlayerTwo() {
+        scorePlayer2 = scorePlayer2 + 2;
+        scoreLabelPlayer2.setText(Integer.toString(scorePlayer2));
     }
 
-    public void updateCardsLeft(int cardsLeft) {
-        this.cardsLeft.setText(Integer.toString(cardsLeft));
+    public void updateCardsLeft() {
+        cardsLeft = cardsLeft - 2;
     }
 
     public void toggleHostButton(boolean value) {
@@ -149,16 +165,5 @@ public class Main extends JPanel {
 
     public void toggleIpInputField (boolean value) {
         IPInput.setEnabled(value);
-    }
-
-    public  void putCardsOnBoard(ArrayList<Card> cards) {
-        gameBoard.removeAll();
-
-        for (int i = 0;  i < 24; i++){
-            //Adds a new cards with this index to the board.
-            gameBoard.add(cards.get(i).getButton());
-        }
-
-        revalidate();
     }
 }
