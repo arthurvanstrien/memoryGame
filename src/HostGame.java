@@ -51,6 +51,7 @@ public class HostGame implements ActionListener{
                     main.toggleHostButton(false);
                     main.toggleConnectButton(false);
                     main.toggleIpInputField(false);
+
                     hosting = true;
 
                     //Listen for a connection request
@@ -58,6 +59,9 @@ public class HostGame implements ActionListener{
 
                     //Message client connected
                     main.updateMessageField("Client connected, game started", Color.GREEN);
+
+                    //Draw the cards on the board of the host.
+                    main.putCardsOnBoard(cardList.getCards());
 
                     //Create data input and output streams
                     DataInputStream inputStream = new DataInputStream(socket.getInputStream());
