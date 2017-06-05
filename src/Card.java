@@ -14,7 +14,7 @@ public class Card {
     private boolean onBoard;
     private int index; //place on the board and index in CardsList
 
-    JButton button;
+    private JButton button;
 
     public Card() {
         this.name = "name";//this will become a parameter later on
