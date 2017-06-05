@@ -13,15 +13,15 @@ public class Card {
     private boolean faceDown;
     private boolean onBoard;
     private int index; //place on the board and index in CardsList
-
     private JButton button;
 
     public Card(String name, int index){
         this.name = name;
-        this.imagePath = "resources/images/" + name +".jpg";
-        this.onBoard = true;
-        this.faceDown = true;
         this.index = index;
+        imagePath = "resources/images/" + name +".jpg";
+        onBoard = true;
+        faceDown = true;
+        button = new JButton();
     }
 
     public int getIndex() {
