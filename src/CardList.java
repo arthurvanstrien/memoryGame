@@ -14,11 +14,6 @@ public class CardList {
         cards = new ArrayList<>();
     }
 
-    public CardList(ArrayList<Card> cards) {
-        this.cards = cards;
-        System.out.println("Cardlist intialized");
-    }
-
     //shuffles the cards in the ArrayList of the CardList class.
     public void shuffle(){
 
