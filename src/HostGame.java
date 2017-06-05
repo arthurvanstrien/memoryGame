@@ -104,17 +104,14 @@ public class HostGame implements ActionListener{
                                 if(type.equals("CLICKED")) {
                                     int clickedCard = inputStream.readInt();
                                     cardList.getCard(clickedCard).turnAround();
-
                                 }
                                 else if(type.equals("MATCH")) {
                                     int card1 = inputStream.readInt();
                                     int card2 = inputStream.readInt();
-
-                                    //Update the GUI by disabeling the two cards.
-                                }
-                                else if (type.equals("SCORE")) {
-                                    int score = inputStream.readInt();
-                                    main.updateScorePlayerTwo(score);
+                                    main.updateScorePlayerTwo();
+                                    main.updateCardsLeft();
+                                    cardList.addMatchedCard(card1);
+                                    cardList.addMatchedCard(card2);
                                 }
                                 else if (type.equals("ENDTURN")) {
                                     myTurn = true;
