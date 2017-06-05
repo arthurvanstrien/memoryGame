@@ -26,6 +26,7 @@ public class SendData {
 
     public void endTurn() {
         try {
+            System.out.println("END TURN SEND");
             outputStream.writeUTF("ENDTURN");
         } catch (IOException e) {
             e.printStackTrace();
