@@ -60,7 +60,7 @@ public class ConnectGame implements ActionListener {
                     DataInputStream inputStream = new DataInputStream(socket.getInputStream());
                     DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 
-                    SendData sendData = new SendData(outputStream, myTurn);
+                    SendData sendData = new SendData(outputStream);
 
                     //Create an empty cardlist.
                     cardList = new CardList(sendData, main, player);

@@ -68,7 +68,7 @@ public class HostGame implements ActionListener{
                     DataInputStream inputStream = new DataInputStream(socket.getInputStream());
                     DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 
-                    SendData sendData = new SendData(outputStream, myTurn);
+                    SendData sendData = new SendData(outputStream);
 
                     //Generate a list of cards.
                     cardList = new CardList(sendData, main, player);

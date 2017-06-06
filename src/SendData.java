@@ -6,11 +6,9 @@ import java.io.IOException;
  */
 public class SendData {
 
-    private boolean myTurn;
     private DataOutputStream outputStream;
 
-    public SendData(DataOutputStream outputStream, Boolean myTurn) {
-        this.myTurn = myTurn;
+    public SendData(DataOutputStream outputStream) {
         this.outputStream = outputStream;
     }
 
