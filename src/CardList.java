@@ -152,8 +152,8 @@ public class CardList {
             main.updateCardsLeft();
             matchedCards.add(cardOne);
             matchedCards.add(cardTwo);
-            cards.get(cardOne).turnAround();
-            cards.get(cardTwo).turnAround();
+            cards.get(cardOne).makeEmpty();
+            cards.get(cardTwo).makeEmpty();
             cards.get(cardOne).getButton().setEnabled(false);
             cards.get(cardTwo).getButton().setEnabled(false);
 

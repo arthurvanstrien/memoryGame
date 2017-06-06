@@ -11,6 +11,7 @@ public class Card implements ActionListener{
     private String name;
     private ImageIcon image;
     private ImageIcon backImage;
+    private ImageIcon emptyIcon;
     private boolean faceDown;
     private boolean onBoard;
     private int index; //place on the board and index in CardsList
@@ -40,6 +41,14 @@ public class Card implements ActionListener{
             e.printStackTrace();
         }
 
+        //Create the empty icon used when the card is mathed.
+        try {
+            emptyIcon = new ImageIcon(ImageIO.read(getClass().getResource("/resources/images/empty.jpg")));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         button = new JButton(backImage);
         button.addActionListener(this);
     }
@@ -59,14 +68,6 @@ public class Card implements ActionListener{
         }
     }
 
-    //THIS IMPLIES THAT THE WHOLE IS REMOVED, WHILE IT IS NOT.
-    //THIS SHOULD BE CALLED SOMETHING LIKE DISABLE CARD.
-    //BECAUSE IT DISABLES THE CARD :P
-    public void removeMe(){
-        //change image to "empty image"
-        this.onBoard = false;
-    }
-
     public JButton getButton() {
         return button;
     }
@@ -83,6 +84,11 @@ public class Card implements ActionListener{
         return onBoard;
     }
 
+    //When the card is guessed make it look like and empty card.
+    public void makeEmpty() {
+        button.setIcon(emptyIcon);
+    }
+
     public String toString(){
         return "name: " + this.name + " index: " + this.index;
     }
@@ -93,4 +99,6 @@ public class Card implements ActionListener{
         sendData.clicked(index);
         cards.cardSelected(index);
     }
+
+
 }
