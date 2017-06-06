@@ -78,6 +78,13 @@ public class ConnectGame implements ActionListener {
                         cardList.toggleCards(true);
                         cardList.addMatchedCard(card1);
                         cardList.addMatchedCard(card2);
+
+                        if(!cardList.getCard(card1).isFaceDown())
+                            cardList.getCard(card1).turnAround();
+
+                        if (!cardList.getCard(card2).isFaceDown())
+                            cardList.getCard(card2).turnAround();
+
                         cardList.getCard(card1).makeEmpty();
                         cardList.getCard(card2).makeEmpty();
                     }
