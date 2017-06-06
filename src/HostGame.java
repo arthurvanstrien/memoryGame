@@ -104,6 +104,8 @@ public class HostGame implements ActionListener{
                         System.out.println("END TURN RECIEVED");
                         cardList.toggleCards(true);
                     }
+
+                    main.cardsLeft();
                 }
 
                 socket.close();

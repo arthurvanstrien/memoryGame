@@ -199,7 +199,14 @@ public class Main extends JPanel {
         scoreLabelPlayer1.setText("-");
         scoreLabelPlayer2.setText("-");
         cardsLeftLabel.setText("-");
-        messageField.setText("Start a game by hosting or connecting");
+        messageField.setText("End of game. P1: " + scorePlayer1 + " P2: " + scorePlayer2);
+        scorePlayer1 = 0;
+        scorePlayer2 = 0;
+    }
+
+    public void cardsLeft() {
+        if(cardsLeft == 0)
+            endGame();
     }
 
     public boolean getGameState() {
@@ -209,9 +216,5 @@ public class Main extends JPanel {
     public void setGameState(boolean value) {
         this.gameState = value;
 
-    }
-
-    public int getCardsLeft() {
-        return cardsLeft;
     }
 }
