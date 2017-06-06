@@ -77,6 +77,13 @@ public class CardList {
         }
     }
 
+    public void toggleCards(boolean value, int card1, int card2) {
+        for (int i = 0; i < 24; i++) {
+            if (!matchedCards.contains(i) && i != card1 && i != card2)
+                cards.get(i).getButton().setEnabled(value);
+        }
+    }
+
     //Returns an arrayList with all the cards.
     public ArrayList<Card> getCards() {
         return cards;
@@ -105,19 +112,23 @@ public class CardList {
 
     public void cardSelected(int cardNumber) {
         if(cardNumber == selectedCardOne) {
-            cards.get(cardNumber).turnAround();
-            checkTurnedBack();
+            if(selectedCardTwo != -1)
+                checkBothTurnedBack();
         }
         else if(cardNumber == selectedCardTwo) {
-            cards.get(cardNumber).turnAround();
-            checkTurnedBack();
-
+            checkBothTurnedBack();
         }
         else {
-            if(selectedCardOne == -1)
+            if(selectedCardOne == -1) {
+                System.out.println("SelectedCardOne");
                 selectedCardOne = cardNumber;
-            else
+            }
+            else {
+                System.out.println("SelectedCardTwo");
+                selectedCardTwo = cardNumber;
+                toggleCards(false, selectedCardOne, selectedCardTwo);
                 match(selectedCardOne, cardNumber);
+            }
         }
     }
 
@@ -157,7 +168,7 @@ public class CardList {
         }
     }
 
-    private void checkTurnedBack() {
+    private void checkBothTurnedBack() {
         if(cards.get(selectedCardOne).isFaceDown() && cards.get(selectedCardTwo).isFaceDown()) {
             sendData.endTurn();
             selectedCardOne = -1;
