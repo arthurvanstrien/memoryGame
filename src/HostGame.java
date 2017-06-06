@@ -110,13 +110,10 @@ public class HostGame implements ActionListener{
 
                 socket.close();
 
-                //End game
-                main.updateMessageField("Game ended", Color.GREEN);
-
             } catch (IOException ioExeption) {
 
                 //Message client connected
-                main.updateMessageField("PORT IS TAKEN", Color.RED);
+                main.updateMessageField("CONNECTION ERROR", Color.RED);
 
                 ioExeption.printStackTrace();
             }
