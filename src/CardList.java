@@ -129,22 +129,6 @@ public class CardList {
         }
     }
 
-    //Prints the list of cards in the console.
-    //This is for debugging.
-    public void printCardList() {
-        for (int i = 0; i < cards.size(); i++) {
-            System.out.println(cards.get(i));
-        }
-    }
-
-    //Prints the names of the cards in the list of cards in the console.
-    //This is for debugging.
-    public void printCardListNames() {
-        for (int i = 0; i < cards.size(); i++) {
-            System.out.println(cards.get(i).getName());
-        }
-    }
-
     private void match(int cardOne, int cardTwo) {
         if(cards.get(cardOne).getName().equals(cards.get(cardTwo).getName())) {
             System.out.println("Match: " + cardOne + " and " +cardTwo);
@@ -182,6 +166,22 @@ public class CardList {
             selectedCardTwo = -1;
             toggleCards(false);
             sendData.endTurn();
+        }
+    }
+
+    //Prints the list of cards in the console.
+    //This is for debugging.
+    public void printCardList() {
+        for (int i = 0; i < cards.size(); i++) {
+            System.out.println(cards.get(i));
+        }
+    }
+
+    //Prints the names of the cards in the list of cards in the console.
+    //This is for debugging.
+    public void printCardListNames() {
+        for (int i = 0; i < cards.size(); i++) {
+            System.out.println(cards.get(i).getName());
         }
     }
 }
