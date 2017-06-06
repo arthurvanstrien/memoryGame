@@ -61,9 +61,6 @@ public class HostGame implements ActionListener{
                     //Message client connected
                     main.updateMessageField("Client connected, game started", Color.GREEN);
 
-                    //The client always begins.
-                    myTurn = false;
-
                     //Create data input and output streams
                     DataInputStream inputStream = new DataInputStream(socket.getInputStream());
                     DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
@@ -92,29 +89,25 @@ public class HostGame implements ActionListener{
 
                     while (hosting) {
 
-                        while (!myTurn) {
+                        String type = inputStream.readUTF();
+                        type.toUpperCase(); //In case someone sends lowercase characters.
 
-                            String type = inputStream.readUTF();
-                            type.toUpperCase(); //In case someone sends lowercase characters.
-
-                            if(type.equals("CLICKED")) {
-                                int clickedCard = inputStream.readInt();
-                                cardList.getCard(clickedCard).turnAround();
-                            }
-                            else if(type.equals("MATCH")) {
-                                System.out.println("Match Recieved");
-                                int card1 = inputStream.readInt();
-                                int card2 = inputStream.readInt();
-                                main.updateScorePlayerTwo();
-                                main.updateCardsLeft();
-                                cardList.addMatchedCard(card1);
-                                cardList.addMatchedCard(card2);
-                            }
-                            else if (type.equals("ENDTURN")) {
-                                System.out.println("END TURN RECIEVED");
-                                cardList.toggleCards(true);
-                                myTurn = true;
-                            }
+                        if(type.equals("CLICKED")) {
+                            int clickedCard = inputStream.readInt();
+                            cardList.getCard(clickedCard).turnAround();
+                        }
+                        else if(type.equals("MATCH")) {
+                            System.out.println("Match Recieved");
+                            int card1 = inputStream.readInt();
+                            int card2 = inputStream.readInt();
+                            main.updateScorePlayerTwo();
+                            main.updateCardsLeft();
+                            cardList.addMatchedCard(card1);
+                            cardList.addMatchedCard(card2);
+                        }
+                        else if (type.equals("ENDTURN")) {
+                            System.out.println("END TURN RECIEVED");
+                            cardList.toggleCards(true);
                         }
                     }
 
