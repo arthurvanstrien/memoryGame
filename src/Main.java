@@ -1,5 +1,7 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * Created by Tabitha on 15-5-2017.
@@ -88,12 +90,19 @@ public class Main extends JPanel {
 
         //GameBoard
 
-        //Generate a empty list of buttons for an empty board.
-        for (int i = 0; i < numberOfCards; i++){
-            JButton button = new JButton(Integer.toString((i + 1)));
-            button.setSize(100,100);
-            button.setEnabled(false);
-            gameBoard.add(button);
+        try {
+            ImageIcon imageIcon = new ImageIcon(ImageIO.read(getClass().getResource("/resources/images/empty.jpg")));
+
+            //Generate a empty list of buttons for an empty board.
+            for (int i = 0; i < numberOfCards; i++){
+                JButton button = new JButton(imageIcon);
+                button.setSize(100,100);
+                button.setEnabled(false);
+                gameBoard.add(button);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("FATAL ERROR. DEFAULT BUTTONS COULD NOT BE CREATED.");
         }
 
         //ScoreBoard
