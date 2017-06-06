@@ -13,7 +13,6 @@ import java.net.Socket;
 public class HostGame implements ActionListener{
 
     private int port;
-    private boolean hosting;
     private Main main;
     private CardList cardList;
     private boolean myTurn;
@@ -22,7 +21,6 @@ public class HostGame implements ActionListener{
     public HostGame(int port, Main main) {
         this.port = port;
         this.main = main;
-        this.hosting = false;
         player = 1;
     }
 
@@ -33,97 +31,89 @@ public class HostGame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(hosting) {
+        new Thread( () -> {
 
-            hosting = false;
-            //main.getHostButton().setText("Host Game");
+            try {
 
-        } else {
+                //Create a server socket
+                ServerSocket serverSocket = new ServerSocket(port);
 
-            new Thread( () -> {
+                //Message hosting started
+                main.updateMessageField("Hosting game, waiting for client", Color.GREEN);
+                main.toggleHostButton(false);
+                main.toggleConnectButton(false);
+                main.toggleIpInputField(false);
 
-                try {
+                main.setGameState(true);
 
-                    //Create a server socket
-                    ServerSocket serverSocket = new ServerSocket(port);
+                //Listen for a connection request
+                Socket socket = serverSocket.accept();
 
-                    //Message hosting started
-                    main.updateMessageField("Hosting game, waiting for client", Color.GREEN);
-                    main.toggleHostButton(false);
-                    main.toggleConnectButton(false);
-                    main.toggleIpInputField(false);
+                //Message client connected
+                main.updateMessageField("Client connected, game started", Color.GREEN);
 
-                    hosting = true;
+                //Create data input and output streams
+                DataInputStream inputStream = new DataInputStream(socket.getInputStream());
+                DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 
-                    //Listen for a connection request
-                    Socket socket = serverSocket.accept();
+                SendData sendData = new SendData(outputStream);
 
-                    //Message client connected
-                    main.updateMessageField("Client connected, game started", Color.GREEN);
+                //Generate a list of cards.
+                cardList = new CardList(sendData, main, player);
+                cardList.fillList();
+                cardList.shuffle();
 
-                    //Create data input and output streams
-                    DataInputStream inputStream = new DataInputStream(socket.getInputStream());
-                    DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+                //Draw the cards on the board of the host.
+                main.setCardList(cardList);
 
-                    SendData sendData = new SendData(outputStream);
+                //Send how many cards we are going to send.
+                outputStream.writeInt(cardList.getNumberOf());
 
-                    //Generate a list of cards.
-                    cardList = new CardList(sendData, main, player);
-                    cardList.fillList();
-                    cardList.shuffle();
+                //Send list of cards
+                for(int i = 0; i < cardList.getNumberOf(); i++) {
 
-                    //Draw the cards on the board of the host.
-                    main.setCardList(cardList);
-
-                    //Send how many cards we are going to send.
-                    outputStream.writeInt(cardList.getNumberOf());
-
-                    //Send list of cards
-                    for(int i = 0; i < cardList.getNumberOf(); i++) {
-
-                        outputStream.writeUTF(cardList.getCard(i).getName());
-                    }
-
-
-                    cardList.toggleCards(false);
-
-                    while (hosting) {
-
-                        String type = inputStream.readUTF();
-                        type.toUpperCase(); //In case someone sends lowercase characters.
-
-                        if(type.equals("CLICKED")) {
-                            int clickedCard = inputStream.readInt();
-                            cardList.getCard(clickedCard).turnAround();
-                        }
-                        else if(type.equals("MATCH")) {
-                            System.out.println("Match Recieved");
-                            int card1 = inputStream.readInt();
-                            int card2 = inputStream.readInt();
-                            main.updateScorePlayerTwo();
-                            main.updateCardsLeft();
-                            cardList.addMatchedCard(card1);
-                            cardList.addMatchedCard(card2);
-                        }
-                        else if (type.equals("ENDTURN")) {
-                            System.out.println("END TURN RECIEVED");
-                            cardList.toggleCards(true);
-                        }
-                    }
-
-                    socket.close();
-
-                    //End game
-                    main.updateMessageField("Game ended", Color.GREEN);
-
-                } catch (IOException ioExeption) {
-
-                    //Message client connected
-                    main.updateMessageField("PORT IS TAKEN", Color.RED);
-
-                    ioExeption.printStackTrace();
+                    outputStream.writeUTF(cardList.getCard(i).getName());
                 }
-            }).start();
-        }
+
+
+                cardList.toggleCards(false);
+
+                while (main.getGameState()) {
+
+                    String type = inputStream.readUTF();
+                    type.toUpperCase(); //In case someone sends lowercase characters.
+
+                    if(type.equals("CLICKED")) {
+                        int clickedCard = inputStream.readInt();
+                        cardList.getCard(clickedCard).turnAround();
+                    }
+                    else if(type.equals("MATCH")) {
+                        System.out.println("Match Recieved");
+                        int card1 = inputStream.readInt();
+                        int card2 = inputStream.readInt();
+                        main.updateScorePlayerTwo();
+                        main.updateCardsLeft();
+                        cardList.addMatchedCard(card1);
+                        cardList.addMatchedCard(card2);
+                    }
+                    else if (type.equals("ENDTURN")) {
+                        System.out.println("END TURN RECIEVED");
+                        cardList.toggleCards(true);
+                    }
+                }
+
+                socket.close();
+
+                //End game
+                main.updateMessageField("Game ended", Color.GREEN);
+
+            } catch (IOException ioExeption) {
+
+                //Message client connected
+                main.updateMessageField("PORT IS TAKEN", Color.RED);
+
+                ioExeption.printStackTrace();
+            }
+        }).start();
     }
 }

@@ -21,6 +21,7 @@ public class Main extends JPanel {
     private JLabel cardsLeftLabel;
     private JPanel gameBoard;
     private int cardsLeft;
+    private boolean gameState;
 
     public static void main(String[] args) {
 
@@ -36,6 +37,9 @@ public class Main extends JPanel {
     {
         //Set default port
         int port = 8001;
+
+        //Game has not started yet.
+        gameState = false;
 
         //Set default number of cards.
         numberOfCards = 24;
@@ -173,5 +177,24 @@ public class Main extends JPanel {
 
     public void toggleIpInputField (boolean value) {
         IPInput.setEnabled(value);
+    }
+
+    public void endGame() {
+        gameState = false;
+    }
+
+    public boolean getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(boolean value) {
+        this.gameState = value;
+        IPInput.setEnabled(true);
+        connectButton.setEnabled(true);
+        hostButton.setEnabled(true);
+        scoreLabelPlayer1.setText("-");
+        scoreLabelPlayer2.setText("-");
+        cardsLeftLabel.setText("-");
+        messageField.setText("Start a game by hosting or connecting");
     }
 }
