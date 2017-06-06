@@ -86,6 +86,8 @@ public class Card implements ActionListener{
 
     //When the card is guessed make it look like and empty card.
     public void makeEmpty() {
+        if(!faceDown)
+            turnAround();
         button.setIcon(emptyIcon);
     }
 
