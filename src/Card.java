@@ -99,6 +99,4 @@ public class Card implements ActionListener{
         sendData.clicked(index);
         cards.cardSelected(index);
     }
-
-
 }

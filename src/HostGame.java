@@ -24,10 +24,6 @@ public class HostGame implements ActionListener{
         player = 1;
     }
 
-    public void clicked() {
-
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
 

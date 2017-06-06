@@ -172,10 +172,6 @@ public class Main extends JPanel {
         connectButton.setEnabled(value);
     }
 
-    public void updateConnectButton (String text) {
-        connectButton.setText(text);
-    }
-
     public void toggleIpInputField (boolean value) {
         IPInput.setEnabled(value);
     }
