@@ -154,6 +154,8 @@ public class CardList {
             matchedCards.add(cardTwo);
             cards.get(cardOne).turnAround();
             cards.get(cardTwo).turnAround();
+            cards.get(cardOne).getButton().setEnabled(false);
+            cards.get(cardTwo).getButton().setEnabled(false);
 
             if(player == 1)
                 main.updateScorePlayerOne();
