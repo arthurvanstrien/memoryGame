@@ -18,16 +18,12 @@ public class HostGame implements ActionListener{
     private CardList cardList;
     private boolean myTurn;
     private int player;
-    private int cardClickedOne;
-    private int cardClickedTwo;
 
     public HostGame(int port, Main main) {
         this.port = port;
         this.main = main;
         this.hosting = false;
         player = 1;
-        cardClickedOne = -1;
-        cardClickedTwo = -1;
     }
 
     public void clicked() {
@@ -104,10 +100,6 @@ public class HostGame implements ActionListener{
                             if(type.equals("CLICKED")) {
                                 int clickedCard = inputStream.readInt();
                                 cardList.getCard(clickedCard).turnAround();
-                                if(cardClickedOne == -1)
-                                    cardClickedOne = clickedCard;
-                                else
-                                    cardClickedTwo = clickedCard;
                             }
                             else if(type.equals("MATCH")) {
                                 System.out.println("Match Recieved");
@@ -115,18 +107,12 @@ public class HostGame implements ActionListener{
                                 int card2 = inputStream.readInt();
                                 main.updateScorePlayerTwo();
                                 main.updateCardsLeft();
-                                cardList.toggleCards(true);
                                 cardList.addMatchedCard(card1);
                                 cardList.addMatchedCard(card2);
-                                cardList.getCard(cardClickedOne).turnAround();
-                                cardList.getCard(cardClickedTwo).turnAround();
                             }
                             else if (type.equals("ENDTURN")) {
                                 System.out.println("END TURN RECIEVED");
-                                cardList.getCard(cardClickedOne).turnAround();
-                                cardList.getCard(cardClickedTwo).turnAround();
                                 cardList.toggleCards(true);
-                                cardClickedOne = -1;
                                 myTurn = true;
                             }
                         }

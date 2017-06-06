@@ -22,8 +22,6 @@ public class ConnectGame implements ActionListener {
     private boolean myTurn;
     private CardList cardList;
     private int player;
-    private int cardClickedOne;
-    private int cardClickedTwo;
 
     public  ConnectGame(JTextField ipInput, int port, Main main) {
 
@@ -32,8 +30,6 @@ public class ConnectGame implements ActionListener {
         this.main = main;
         this.connected = false;
         player = 2;
-        cardClickedOne = -1;
-        cardClickedTwo = -1;
     }
 
     @Override
@@ -92,10 +88,6 @@ public class ConnectGame implements ActionListener {
                             if(type.equals("CLICKED")) {
                                 int clickedCard = inputStream.readInt();
                                 cardList.getCard(clickedCard).turnAround();
-                                if(cardClickedOne == -1)
-                                    cardClickedOne = clickedCard;
-                                else
-                                    cardClickedTwo = clickedCard;
                             }
                             else if(type.equals("MATCH")) {
                                 System.out.println("Match Recieved");
@@ -106,15 +98,10 @@ public class ConnectGame implements ActionListener {
                                 cardList.toggleCards(true);
                                 cardList.addMatchedCard(card1);
                                 cardList.addMatchedCard(card2);
-                                cardList.getCard(cardClickedOne).turnAround();
-                                cardList.getCard(cardClickedTwo).turnAround();
                             }
                             else if (type.equals("ENDTURN")) {
                                 System.out.println("END TURN RECIEVED");
-                                cardList.getCard(cardClickedOne).turnAround();
-                                cardList.getCard(cardClickedTwo).turnAround();
                                 cardList.toggleCards(true);
-                                cardClickedOne = -1;
                                 myTurn = true;
                             }
                         }
