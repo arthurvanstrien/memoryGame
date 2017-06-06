@@ -90,6 +90,8 @@ public class HostGame implements ActionListener{
                         main.updateCardsLeft();
                         cardList.addMatchedCard(card1);
                         cardList.addMatchedCard(card2);
+                        cardList.getCard(card1).turnAround();
+                        cardList.getCard(card2).turnAround();
                     }
                     else if (type.equals("ENDTURN")) {
                         System.out.println("END TURN RECIEVED");

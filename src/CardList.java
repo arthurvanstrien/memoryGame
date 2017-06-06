@@ -152,13 +152,15 @@ public class CardList {
             main.updateCardsLeft();
             matchedCards.add(cardOne);
             matchedCards.add(cardTwo);
+            cards.get(cardOne).turnAround();
+            cards.get(cardTwo).turnAround();
 
             if(player == 1)
                 main.updateScorePlayerOne();
             else
                 main.updateScorePlayerTwo();
 
-
+            checkBothTurnedBack();
         }
         else {
             System.out.println("No Match: " + cardOne + " and " +cardTwo);

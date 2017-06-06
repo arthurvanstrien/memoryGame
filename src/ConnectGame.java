@@ -78,6 +78,8 @@ public class ConnectGame implements ActionListener {
                         cardList.toggleCards(true);
                         cardList.addMatchedCard(card1);
                         cardList.addMatchedCard(card2);
+                        cardList.getCard(card1).turnAround();
+                        cardList.getCard(card2).turnAround();
                     }
                     else if (type.equals("ENDTURN")) {
                         System.out.println("END TURN RECIEVED");
