@@ -73,7 +73,7 @@ public class ConnectGame implements ActionListener {
                         System.out.println("Match Recieved");
                         int card1 = inputStream.readInt();
                         int card2 = inputStream.readInt();
-                        main.updateScorePlayerTwo();
+                        main.updateScorePlayerOne();
                         main.updateCardsLeft();
                         cardList.toggleCards(true);
                         cardList.addMatchedCard(card1);
