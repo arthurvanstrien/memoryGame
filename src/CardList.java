@@ -148,6 +148,13 @@ public class CardList {
     private void match(int cardOne, int cardTwo) {
         if(cards.get(cardOne).getName().equals(cards.get(cardTwo).getName())) {
             System.out.println("Match: " + cardOne + " and " +cardTwo);
+
+            if(!cards.get(cardOne).isFaceDown())
+                cards.get(cardOne).turnAround();
+
+            if (!cards.get(cardTwo).isFaceDown())
+                cards.get(cardTwo).turnAround();
+
             sendData.match(cardOne, cardTwo);
             main.updateCardsLeft();
             matchedCards.add(cardOne);
@@ -171,10 +178,10 @@ public class CardList {
 
     private void checkBothTurnedBack() {
         if(cards.get(selectedCardOne).isFaceDown() && cards.get(selectedCardTwo).isFaceDown()) {
-            sendData.endTurn();
             selectedCardOne = -1;
             selectedCardTwo = -1;
             toggleCards(false);
+            sendData.endTurn();
         }
     }
 }
