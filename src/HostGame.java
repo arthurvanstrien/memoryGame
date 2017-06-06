@@ -113,7 +113,7 @@ public class HostGame implements ActionListener{
             } catch (IOException ioExeption) {
 
                 //Message client connected
-                main.updateMessageField("CONNECTION ERROR", Color.RED);
+                main.endGame();
 
                 ioExeption.printStackTrace();
             }
