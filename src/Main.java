@@ -115,7 +115,7 @@ public class Main extends JPanel {
         JLabel playerTwo = new JLabel("Player 2:");
         scoreLabelPlayer2 = new JLabel("-");
         JLabel cards = new JLabel("Cards left:");
-        cardsLeftLabel = new JLabel(Integer.toString(cardsLeft));
+        cardsLeftLabel = new JLabel("-");
 
         scoreBoard.add(playerOne);
         scoreBoard.add(scoreLabelPlayer1);
@@ -161,6 +161,7 @@ public class Main extends JPanel {
 
     public void updateCardsLeft() {
         cardsLeft = cardsLeft - 2;
+        cardsLeftLabel.setText(Integer.toString(cardsLeft));
     }
 
     public void toggleHostButton(boolean value) {
@@ -179,8 +180,26 @@ public class Main extends JPanel {
         IPInput.setEnabled(value);
     }
 
+    public void startGame() {
+        toggleHostButton(false);
+        toggleConnectButton(false);
+        toggleIpInputField(false);
+        setGameState(true);
+        cardsLeftLabel.setText(Integer.toString(cardsLeft));
+        scoreLabelPlayer1.setText(Integer.toString(0));
+        scoreLabelPlayer2.setText(Integer.toString(0));
+        updateMessageField("Game started", Color.GREEN);
+    }
+
     public void endGame() {
         gameState = false;
+        IPInput.setEnabled(true);
+        connectButton.setEnabled(true);
+        hostButton.setEnabled(true);
+        scoreLabelPlayer1.setText("-");
+        scoreLabelPlayer2.setText("-");
+        cardsLeftLabel.setText("-");
+        messageField.setText("Start a game by hosting or connecting");
     }
 
     public boolean getGameState() {
@@ -189,12 +208,10 @@ public class Main extends JPanel {
 
     public void setGameState(boolean value) {
         this.gameState = value;
-        IPInput.setEnabled(true);
-        connectButton.setEnabled(true);
-        hostButton.setEnabled(true);
-        scoreLabelPlayer1.setText("-");
-        scoreLabelPlayer2.setText("-");
-        cardsLeftLabel.setText("-");
-        messageField.setText("Start a game by hosting or connecting");
+
+    }
+
+    public int getCardsLeft() {
+        return cardsLeft;
     }
 }

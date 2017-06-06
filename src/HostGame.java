@@ -40,17 +40,12 @@ public class HostGame implements ActionListener{
 
                 //Message hosting started
                 main.updateMessageField("Hosting game, waiting for client", Color.GREEN);
-                main.toggleHostButton(false);
-                main.toggleConnectButton(false);
-                main.toggleIpInputField(false);
-
-                main.setGameState(true);
 
                 //Listen for a connection request
                 Socket socket = serverSocket.accept();
 
-                //Message client connected
-                main.updateMessageField("Client connected, game started", Color.GREEN);
+                //Run startGame script
+                main.startGame();
 
                 //Create data input and output streams
                 DataInputStream inputStream = new DataInputStream(socket.getInputStream());
