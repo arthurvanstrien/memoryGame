@@ -7,16 +7,23 @@ import java.util.Collections;
 public class CardList {
 
     private ArrayList<Card> cards;
+    private ArrayList<Integer> matchedCards;
+    private int selectedCardOne;
+    private int selectedCardTwo;
+    private SendData sendData;
+    private Main main;
+    private int player;
 
     //Create an empty cardslist.
     //This is for construction a list of cards from the names recieved by the client.
-    public CardList() {
+    public CardList(SendData sendData, Main main, int player) {
+        this.sendData = sendData;
+        this.main = main;
+        this.player = player;
         cards = new ArrayList<>();
-    }
-
-    public CardList(ArrayList<Card> cards) {
-        this.cards = cards;
-        System.out.println("Cardlist intialized");
+        matchedCards = new ArrayList<>();
+        selectedCardOne = -1;
+        selectedCardTwo = -1;
     }
 
     //shuffles the cards in the ArrayList of the CardList class.
@@ -51,17 +58,26 @@ public class CardList {
             int secondIndex = i + 12;
 
             //adds two indentical cards to cards
-            cards.add(new Card(names.get(i), i));
-            cards.add(new Card(names.get(i), secondIndex));
+            cards.add(new Card(names.get(i), i, sendData, this));
+            cards.add(new Card(names.get(i), secondIndex, sendData, this));
 
         }
     }
 
     //This method toggles all of the cards in the arrayList on or of.
     //When turned of, they will be disabled in the GUI (cannot be clicked).
+    //If the card is matched, it wont get enabled again when its the players turn.
     public void toggleCards(Boolean value) {
-        for(int i = 0; i < 24; i++) {
-            cards.get(i).getButton().setEnabled(value);
+        for (int i = 0; i < 24; i++) {
+            if (!matchedCards.contains(i))
+                cards.get(i).getButton().setEnabled(value);
+        }
+    }
+
+    public void toggleCards(boolean value, int card1, int card2) {
+        for (int i = 0; i < 24; i++) {
+            if (!matchedCards.contains(i) && i != card1 && i != card2)
+                cards.get(i).getButton().setEnabled(value);
         }
     }
 
@@ -81,9 +97,36 @@ public class CardList {
     }
 
     //Cards can be added by just there image string.
-    public void addCardByString(String name, int index) {
-        Card card = new Card(name, index);
+    public void addCardByString(String name, int index, SendData sendData) {
+        Card card = new Card(name, index, sendData, this);
         cards.add(card);
+    }
+
+    public void addMatchedCard(int cardNumber) {
+        matchedCards.add(cardNumber);
+        cards.get(cardNumber).getButton().setEnabled(false);
+    }
+
+    public void cardSelected(int cardNumber) {
+        if(cardNumber == selectedCardOne) {
+            if(selectedCardTwo != -1)
+                checkBothTurnedBack();
+        }
+        else if(cardNumber == selectedCardTwo) {
+            checkBothTurnedBack();
+        }
+        else {
+            if(selectedCardOne == -1) {
+                System.out.println("SelectedCardOne");
+                selectedCardOne = cardNumber;
+            }
+            else {
+                System.out.println("SelectedCardTwo");
+                selectedCardTwo = cardNumber;
+                toggleCards(false, selectedCardOne, selectedCardTwo);
+                match(selectedCardOne, cardNumber);
+            }
+        }
     }
 
     //Prints the list of cards in the console.
@@ -99,6 +142,39 @@ public class CardList {
     public void printCardListNames() {
         for (int i = 0; i < cards.size(); i++) {
             System.out.println(cards.get(i).getName());
+        }
+    }
+
+    private void match(int cardOne, int cardTwo) {
+        if(cards.get(cardOne).getName().equals(cards.get(cardTwo).getName())) {
+            System.out.println("Match: " + cardOne + " and " +cardTwo);
+            sendData.match(cardOne, cardTwo);
+            main.updateCardsLeft();
+            matchedCards.add(cardOne);
+            matchedCards.add(cardTwo);
+            cards.get(cardOne).makeEmpty();
+            cards.get(cardTwo).makeEmpty();
+            cards.get(cardOne).getButton().setEnabled(false);
+            cards.get(cardTwo).getButton().setEnabled(false);
+
+            if(player == 1)
+                main.updateScorePlayerOne();
+            else
+                main.updateScorePlayerTwo();
+
+            checkBothTurnedBack();
+        }
+        else {
+            System.out.println("No Match: " + cardOne + " and " +cardTwo);
+        }
+    }
+
+    private void checkBothTurnedBack() {
+        if(cards.get(selectedCardOne).isFaceDown() && cards.get(selectedCardTwo).isFaceDown()) {
+            sendData.endTurn();
+            selectedCardOne = -1;
+            selectedCardTwo = -1;
+            toggleCards(false);
         }
     }
 }

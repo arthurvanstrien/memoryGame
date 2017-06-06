@@ -1,6 +1,7 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.io.IOException;
 
 /**
  * Created by Tabitha on 15-5-2017.
@@ -13,11 +14,14 @@ public class Main extends JPanel {
     private JButton hostButton;
     private JTextField messageField;
     private int numberOfCards;
-    private JLabel scorePlayer1;
-    private JLabel scorePlayer2;
-    private JLabel cardsLeft;
+    private JLabel scoreLabelPlayer1;
+    private JLabel scoreLabelPlayer2;
+    private int scorePlayer1;
+    private int scorePlayer2;
+    private JLabel cardsLeftLabel;
     private JPanel gameBoard;
-
+    private int cardsLeft;
+    private boolean gameState;
 
     public static void main(String[] args) {
 
@@ -34,8 +38,12 @@ public class Main extends JPanel {
         //Set default port
         int port = 8001;
 
+        //Game has not started yet.
+        gameState = false;
+
         //Set default number of cards.
         numberOfCards = 24;
+        cardsLeft = numberOfCards;
 
         // Create Border Layout
         setLayout(new BorderLayout());
@@ -86,28 +94,35 @@ public class Main extends JPanel {
 
         //GameBoard
 
-        //Generate a empty list of buttons for an empty board.
-        for (int i = 0; i < numberOfCards; i++){
-            JButton button = new JButton(Integer.toString((i + 1)));
-            button.setSize(100,100);
-            button.setEnabled(false);
-            gameBoard.add(button);
+        try {
+            ImageIcon imageIcon = new ImageIcon(ImageIO.read(getClass().getResource("/resources/images/empty.jpg")));
+
+            //Generate a empty list of buttons for an empty board.
+            for (int i = 0; i < numberOfCards; i++){
+                JButton button = new JButton(imageIcon);
+                button.setSize(100,100);
+                button.setEnabled(false);
+                gameBoard.add(button);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("FATAL ERROR. DEFAULT BUTTONS COULD NOT BE CREATED.");
         }
 
         //ScoreBoard
         JLabel playerOne = new JLabel("Player 1:");
-        scorePlayer1 = new JLabel("-");
+        scoreLabelPlayer1 = new JLabel("-");
         JLabel playerTwo = new JLabel("Player 2:");
-        scorePlayer2 = new JLabel("-");
+        scoreLabelPlayer2 = new JLabel("-");
         JLabel cards = new JLabel("Cards left:");
-        cardsLeft = new JLabel("-");
+        cardsLeftLabel = new JLabel("-");
 
         scoreBoard.add(playerOne);
-        scoreBoard.add(scorePlayer1);
+        scoreBoard.add(scoreLabelPlayer1);
         scoreBoard.add(playerTwo);
-        scoreBoard.add(scorePlayer2);
+        scoreBoard.add(scoreLabelPlayer2);
         scoreBoard.add(cards);
-        scoreBoard.add(cardsLeft);
+        scoreBoard.add(cardsLeftLabel);
 
         //Add everything to pane
         add(connectionPanel, BorderLayout.PAGE_START);
@@ -118,21 +133,35 @@ public class Main extends JPanel {
         updateMessageField("Start a game by hosting or connecting", Color.BLACK);
     }
 
+    public void setCardList(CardList cardList) {
+        gameBoard.removeAll();
+
+        for (int i = 0;  i < 24; i++){
+            //Adds a new cards with this index to the board.
+            gameBoard.add(cardList.getCard(i).getButton());
+        }
+
+        revalidate();
+    }
+
     public void updateMessageField(String text, Color color) {
         messageField.setText(text);
         messageField.setForeground(color);
     }
 
-    public void updateScorePlayerOne(int score) {
-        scorePlayer1.setText(Integer.toString(score));
+    public void updateScorePlayerOne() {
+        scorePlayer1 = scorePlayer1 + 2;
+        scoreLabelPlayer1.setText(Integer.toString(scorePlayer1));
     }
 
-    public void updateScorePlayerTwo(int score) {
-        scorePlayer2.setText(Integer.toString(score));
+    public void updateScorePlayerTwo() {
+        scorePlayer2 = scorePlayer2 + 2;
+        scoreLabelPlayer2.setText(Integer.toString(scorePlayer2));
     }
 
-    public void updateCardsLeft(int cardsLeft) {
-        this.cardsLeft.setText(Integer.toString(cardsLeft));
+    public void updateCardsLeft() {
+        cardsLeft = cardsLeft - 2;
+        cardsLeftLabel.setText(Integer.toString(cardsLeft));
     }
 
     public void toggleHostButton(boolean value) {
@@ -151,14 +180,38 @@ public class Main extends JPanel {
         IPInput.setEnabled(value);
     }
 
-    public  void putCardsOnBoard(ArrayList<Card> cards) {
-        gameBoard.removeAll();
+    public void startGame() {
+        toggleHostButton(false);
+        toggleConnectButton(false);
+        toggleIpInputField(false);
+        setGameState(true);
+        cardsLeftLabel.setText(Integer.toString(cardsLeft));
+        scoreLabelPlayer1.setText(Integer.toString(0));
+        scoreLabelPlayer2.setText(Integer.toString(0));
+        updateMessageField("Game started", Color.GREEN);
+    }
 
-        for (int i = 0;  i < 24; i++){
-            //Adds a new cards with this index to the board.
-            gameBoard.add(cards.get(i).getButton());
-        }
+    public void endGame() {
+        gameState = false;
+        IPInput.setEnabled(true);
+        connectButton.setEnabled(true);
+        hostButton.setEnabled(true);
+        scoreLabelPlayer1.setText("-");
+        scoreLabelPlayer2.setText("-");
+        cardsLeftLabel.setText("-");
+        messageField.setText("Start a game by hosting or connecting");
+    }
 
-        revalidate();
+    public boolean getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(boolean value) {
+        this.gameState = value;
+
+    }
+
+    public int getCardsLeft() {
+        return cardsLeft;
     }
 }
