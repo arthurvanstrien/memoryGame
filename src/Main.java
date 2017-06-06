@@ -150,7 +150,7 @@ public class Main extends JPanel {
     }
 
     public void updateScorePlayerOne() {
-        scorePlayer1 = scorePlayer1 + 1;
+        scorePlayer1 = scorePlayer1 + 2;
         scoreLabelPlayer1.setText(Integer.toString(scorePlayer1));
     }
 
