@@ -1,9 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -15,7 +13,6 @@ public class HostGame implements ActionListener{
     private int port;
     private Main main;
     private CardList cardList;
-    private boolean myTurn;
     private int player;
 
     public HostGame(int port, Main main) {
@@ -29,10 +26,14 @@ public class HostGame implements ActionListener{
 
         new Thread( () -> {
 
+            ServerSocket serverSocket = null;
+            DataOutputStream outputStream = null;
+            DataInputStream inputStream  = null;
+
             try {
 
                 //Create a server socket
-                ServerSocket serverSocket = new ServerSocket(port);
+                serverSocket = new ServerSocket(port);
 
                 //Message hosting started
                 main.updateMessageField("Hosting game, waiting for client", Color.GREEN);
@@ -44,8 +45,8 @@ public class HostGame implements ActionListener{
                 main.startGame();
 
                 //Create data input and output streams
-                DataInputStream inputStream = new DataInputStream(socket.getInputStream());
-                DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+                inputStream = new DataInputStream(socket.getInputStream());
+                outputStream = new DataOutputStream(socket.getOutputStream());
 
                 SendData sendData = new SendData(outputStream);
 
@@ -97,14 +98,34 @@ public class HostGame implements ActionListener{
                     main.cardsLeft();
                 }
 
+                outputStream.close();
+                inputStream.close();
                 socket.close();
+
 
             } catch (IOException ioExeption) {
 
-                //Message client connected
-                main.endGame();
-
                 ioExeption.printStackTrace();
+            }
+            finally {
+                main.endGame();
+                try {
+                    outputStream.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+
+                try {
+                    inputStream.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+
+                try {
+                    serverSocket.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         }).start();
     }

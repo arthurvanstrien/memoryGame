@@ -20,6 +20,7 @@ public class ConnectGame implements ActionListener {
     private CardList cardList;
     private int player;
 
+
     public  ConnectGame(JTextField ipInput, int port, Main main) {
 
         this.port = port;
@@ -33,15 +34,19 @@ public class ConnectGame implements ActionListener {
 
         new Thread( () -> {
 
+            DataOutputStream outputStream = null;
+            DataInputStream inputStream = null;
+            Socket socket = null;
+
             try {
-                Socket socket = new Socket(ipInput.getText(), port);
+                socket = new Socket(ipInput.getText(), port);
 
                 //We are now connected with a host so we start the game.
                 main.startGame();
 
                 //Create data input and output streams
-                DataInputStream inputStream = new DataInputStream(socket.getInputStream());
-                DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+                inputStream = new DataInputStream(socket.getInputStream());
+                outputStream = new DataOutputStream(socket.getOutputStream());
 
                 SendData sendData = new SendData(outputStream);
 
@@ -88,13 +93,35 @@ public class ConnectGame implements ActionListener {
                     main.cardsLeft();
                 }
 
+                outputStream.close();
+                inputStream.close();
                 socket.close();
 
             } catch (IOException ioExeption) {
 
-                //Message client connected
-                main.endGame();
                 ioExeption.printStackTrace();
+            }
+            finally {
+                main.endGame();
+
+                main.endGame();
+                try {
+                    outputStream.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+
+                try {
+                    inputStream.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+
+                try {
+                    socket.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         }).start();
     }
